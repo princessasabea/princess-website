@@ -1,0 +1,7 @@
+{
+  "name": "MyKart - Ghana's #1 Grocery Delivery",
+  "description": "The first Ghanaian grocery delivery app focused on trust, reliability, and local ecosystem integration. Connecting urban professionals and families with major retailers and local Market Mamas.",
+  "requestFramePermissions": [
+    "geolocation"
+  ]
+}
