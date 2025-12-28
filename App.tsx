@@ -33,31 +33,18 @@ const ScrollToTop: React.FC = () => {
   return null;
 };
 
-const BackToTop: React.FC = () => {
-  const [visible, setVisible] = useState(false);
-
-  useEffect(() => {
-    const toggleVisible = () => {
-      if (window.scrollY > 300) {
-        setVisible(true);
-      } else {
-        setVisible(false);
-      }
-    };
-    window.addEventListener('scroll', toggleVisible);
-    return () => window.removeEventListener('scroll', toggleVisible);
-  }, []);
-
+const BackToTop: React.FC<{ isMenuOpen: boolean }> = ({ isMenuOpen }) => {
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
-  if (!visible) return null;
-
+  // The button is always visible across all screens (mobile, tablet, PC) and states.
+  // We removed entry animations to make it feel completely "static" and persistent in its spot.
+  // z-index remains at 120 to stay on top of all elements including the mobile menu.
   return (
     <button 
       onClick={scrollToTop}
-      className="fixed bottom-8 right-8 z-[60] w-14 h-14 bg-primary text-white rounded-full shadow-2xl flex items-center justify-center hover:scale-110 transition-all active:scale-90 animate-in fade-in slide-in-from-bottom-4 duration-300"
+      className="fixed bottom-8 right-8 z-[120] w-14 h-14 bg-primary text-white rounded-full shadow-2xl flex items-center justify-center hover:scale-110 transition-all active:scale-90"
       aria-label="Back to top"
     >
       <span className="material-symbols-outlined text-3xl">arrow_upward</span>
@@ -65,19 +52,30 @@ const BackToTop: React.FC = () => {
   );
 };
 
-const Navbar: React.FC = () => {
+const Navbar: React.FC<{ onToggle: (open: boolean) => void }> = ({ onToggle }) => {
   const [isOpen, setIsOpen] = useState(false);
   const location = useLocation();
 
-  const toggleMenu = () => setIsOpen(!isOpen);
+  const toggleMenu = () => {
+    const newState = !isOpen;
+    setIsOpen(newState);
+    onToggle(newState);
+    if (newState) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'unset';
+    }
+  };
 
   useEffect(() => {
     setIsOpen(false);
-  }, [location]);
+    onToggle(false);
+    document.body.style.overflow = 'unset';
+  }, [location, onToggle]);
 
   return (
-    <nav className="sticky top-0 z-50 w-full bg-bg-light/90 backdrop-blur-md border-b border-gray-100">
-      <div className="max-w-6xl mx-auto px-4 py-3 flex justify-between items-center">
+    <nav className="sticky top-0 z-[100] w-full bg-bg-light border-b border-gray-100 shadow-sm">
+      <div className="max-w-6xl mx-auto px-4 py-3 flex justify-between items-center relative z-[110]">
         <Link to="/" className="flex items-center gap-2 group">
           <div className="w-9 h-9 bg-primary rounded-lg flex items-center justify-center text-white shadow-lg shadow-primary/20 group-hover:scale-110 transition-transform">
             <span className="material-symbols-outlined text-[20px]">shopping_cart</span>
@@ -102,16 +100,32 @@ const Navbar: React.FC = () => {
       </div>
 
       {isOpen && (
-        <div className="fixed inset-0 top-[61px] bg-bg-light z-40 p-6 flex flex-col gap-6 md:hidden">
-          <Link to="/" className="text-2xl font-bold border-b border-gray-100 pb-2">Home</Link>
-          <Link to="/vision" className="text-2xl font-bold border-b border-gray-100 pb-2">Vision</Link>
-          <Link to="/delivery" className="text-2xl font-bold border-b border-gray-100 pb-2">Delivery Modes</Link>
-          <Link to="/community" className="text-2xl font-bold border-b border-gray-100 pb-2">Our Kommunity</Link>
-          <Link to="/team" className="text-2xl font-bold border-b border-gray-100 pb-2">The Team</Link>
-          <Link to="/wireframes" className="text-2xl font-bold border-b border-gray-100 pb-2">View MVP</Link>
-          <Link to="/contact" className="text-2xl font-bold border-b border-gray-100 pb-2">Contact Us</Link>
-          <div className="mt-auto">
-            <Link to="/reserve" className="block w-full py-4 bg-primary text-white text-center font-bold rounded-2xl text-lg shadow-xl shadow-primary/20">
+        <div className="fixed inset-0 top-0 bg-[#fcfaf8] z-[105] p-6 pt-24 flex flex-col gap-6 md:hidden animate-in slide-in-from-top-full duration-500 ease-out h-screen overflow-y-auto">
+          <div className="flex flex-col gap-4">
+            <Link to="/" className="text-2xl font-black text-dark border-b border-gray-100 pb-4 flex justify-between items-center group">
+              Home <span className="material-symbols-outlined text-primary group-hover:translate-x-1 transition-transform">chevron_right</span>
+            </Link>
+            <Link to="/vision" className="text-2xl font-black text-dark border-b border-gray-100 pb-4 flex justify-between items-center group">
+              Vision <span className="material-symbols-outlined text-primary group-hover:translate-x-1 transition-transform">chevron_right</span>
+            </Link>
+            <Link to="/delivery" className="text-2xl font-black text-dark border-b border-gray-100 pb-4 flex justify-between items-center group">
+              Delivery Modes <span className="material-symbols-outlined text-primary group-hover:translate-x-1 transition-transform">chevron_right</span>
+            </Link>
+            <Link to="/community" className="text-2xl font-black text-dark border-b border-gray-100 pb-4 flex justify-between items-center group">
+              Our Kommunity <span className="material-symbols-outlined text-primary group-hover:translate-x-1 transition-transform">chevron_right</span>
+            </Link>
+            <Link to="/team" className="text-2xl font-black text-dark border-b border-gray-100 pb-4 flex justify-between items-center group">
+              The Team <span className="material-symbols-outlined text-primary group-hover:translate-x-1 transition-transform">chevron_right</span>
+            </Link>
+            <Link to="/wireframes" className="text-2xl font-black text-dark border-b border-gray-100 pb-4 flex justify-between items-center group">
+              View MVP <span className="material-symbols-outlined text-primary group-hover:translate-x-1 transition-transform">chevron_right</span>
+            </Link>
+            <Link to="/contact" className="text-2xl font-black text-dark border-b border-gray-100 pb-4 flex justify-between items-center group">
+              Contact Us <span className="material-symbols-outlined text-primary group-hover:translate-x-1 transition-transform">chevron_right</span>
+            </Link>
+          </div>
+          <div className="mt-8 pb-10">
+            <Link to="/reserve" className="block w-full py-5 bg-primary text-white text-center font-black rounded-3xl text-xl shadow-2xl shadow-primary/30 active:scale-95 transition-all">
               Partner with Us
             </Link>
           </div>
@@ -168,11 +182,13 @@ const Footer: React.FC = () => (
 );
 
 const App: React.FC = () => {
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+
   return (
     <HashRouter>
       <ScrollToTop />
       <div className="min-h-screen flex flex-col">
-        <Navbar />
+        <Navbar onToggle={setIsMenuOpen} />
         <main className="flex-1">
           <Routes>
             <Route path="/" element={<Home />} />
@@ -190,7 +206,7 @@ const App: React.FC = () => {
           </Routes>
         </main>
         <Footer />
-        <BackToTop />
+        <BackToTop isMenuOpen={isMenuOpen} />
       </div>
     </HashRouter>
   );
