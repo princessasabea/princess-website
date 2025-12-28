@@ -1,4 +1,5 @@
 
+
 import React, { useState } from 'react';
 
 type Neighborhood = 'East Legon' | 'Madina' | 'Spintex' | 'Tema' | 'Dansoman';
