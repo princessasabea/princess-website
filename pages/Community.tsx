@@ -17,7 +17,7 @@ const Community: React.FC = () => {
         </div>
         <div className="relative z-10 max-w-6xl mx-auto px-4 pb-16 w-full">
           <span className="inline-block px-4 py-1 bg-primary text-white text-xs font-bold rounded-full mb-4">OUR MISSION</span>
-          <h1 className="text-4xl md:text-7xl font-extrabold text-white leading-tight mb-4">More Than Just Delivery</h1>
+          <h1 className="text-4xl md:text-7xl font-extrabold text-white leading-tight mb-4">Our Kommunity Spirit</h1>
           <p className="text-xl text-gray-200 max-w-2xl leading-relaxed">
             Growing together with the Ghanaian ecosystem, one basket at a time. Empowering local vendors through digitisation.
           </p>
@@ -31,7 +31,7 @@ const Community: React.FC = () => {
             <h2 className="text-primary text-sm font-bold tracking-widest uppercase mb-4">VENDOR SUPPORT</h2>
             <h3 className="text-3xl md:text-5xl font-extrabold mb-6">Direct from Market Mamas</h3>
             <p className="text-muted text-lg leading-relaxed mb-8">
-              We partner with over 200 local vendors across Makola, Agbogbloshie, and Tema to bring authentic freshness to your door. By digitising their inventory, we help traditional vendors reach a new generation of customers.
+              We partner with over 200 local vendors across Makola, Agbogbloshie, and Tema to bring authentic freshness to your door. By digitising their inventory, we help traditional vendors reach a new generation of customers in our growing Kommunity.
             </p>
             <div className="grid grid-cols-2 gap-4">
               <div className="p-6 bg-cream rounded-2xl text-center">
@@ -54,16 +54,16 @@ const Community: React.FC = () => {
         </div>
       </section>
 
-      {/* Community Truck */}
+      {/* Kommunity Truck */}
       <section className="py-24 bg-dark text-white px-4 overflow-hidden relative">
         <div className="max-w-6xl mx-auto flex flex-col md:flex-row items-center gap-16 relative z-10">
           <div className="flex-1">
              <div className="bg-primary/20 p-4 rounded-3xl inline-block mb-8">
                 <span className="material-symbols-outlined text-primary text-[40px]">local_shipping</span>
              </div>
-             <h2 className="text-3xl md:text-5xl font-extrabold mb-6">The Community Truck</h2>
+             <h2 className="text-3xl md:text-5xl font-extrabold mb-6">The Kommunity Truck</h2>
              <p className="text-gray-300 text-lg leading-relaxed mb-8">
-               "No delivery zone? No problem." Our weekly Community Truck brings essentials to underserved neighborhoods at bulk prices, ensuring quality nutrition is accessible to everyone.
+               "No delivery zone? No problem." Our weekly Kommunity Truck brings essentials to underserved neighborhoods at bulk prices, ensuring quality nutrition is accessible to everyone.
              </p>
              <Link to="/truck-schedule" className="inline-block px-8 py-4 bg-primary text-white font-bold rounded-2xl hover:scale-105 transition-all shadow-lg shadow-primary/20">
                 View Truck Schedule

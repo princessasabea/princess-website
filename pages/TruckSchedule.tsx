@@ -37,7 +37,7 @@ const TruckSchedule: React.FC = () => {
               <span className="w-2 h-2 bg-primary rounded-full animate-pulse"></span>
               <span className="text-xs font-black text-primary uppercase tracking-widest">Roadmap Phase 2</span>
             </div>
-            <h1 className="text-5xl md:text-7xl font-black mb-6 text-dark tracking-tighter">Community Truck.</h1>
+            <h1 className="text-5xl md:text-7xl font-black mb-6 text-dark tracking-tighter">Kommunity Truck.</h1>
             <p className="text-xl text-muted leading-relaxed font-medium">
               Bridging the accessibility gap. Our planned fleet of mobile distribution hubs will bring fresh market produce to neighborhoods outside standard delivery zones at wholesale prices.
             </p>
@@ -147,33 +147,6 @@ const TruckSchedule: React.FC = () => {
                   Submit Proposal
                 </button>
               </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section className="py-20 px-4 bg-bg-light">
-        <div className="max-w-6xl mx-auto">
-          <div className="bg-white rounded-[4rem] p-4 shadow-2xl border border-gray-100 h-[500px] relative overflow-hidden group">
-            <div className="absolute inset-0 bg-gray-100">
-               <img 
-                 src="https://lh3.googleusercontent.com/aida-public/AB6AXuAsZ58jMLtlO6dHHfH3oT7Vq4pVrN85PRF41guC12ZTdjmGqITPoyv38RKdkNbtk8i8k_8iXp6jGQ3HOlN9byF-kHUtagNhJsVpc7M1xWRRzyT832pQYIYMhbYq-Ja0APXZQA_9JCGyjkGQhXrT1oIyGpcsEUPFEoO4W84U81X1cHbVRFDAYQgogxDju2KQIDqcKKBtwHvCPxnsBbLBoTtozz3DxtRqeTS63XtXkeSS6Fyaqz1TZrNhFKH3FIbERQiOTlv31_WdT2A" 
-                 className="w-full h-full object-cover opacity-50 grayscale" 
-                 alt="Expansion Map"
-               />
-               <div className="absolute top-1/4 left-1/3 w-8 h-8 bg-primary rounded-full animate-ping opacity-20"></div>
-               <div className="absolute top-1/4 left-1/3 w-4 h-4 bg-primary rounded-full border-2 border-white shadow-xl"></div>
-               <div className="absolute bottom-1/3 right-1/4 w-4 h-4 bg-primary/40 rounded-full border-2 border-white/50"></div>
-               <div className="absolute top-1/2 left-1/2 w-4 h-4 bg-primary/40 rounded-full border-2 border-white/50"></div>
-            </div>
-
-            <div className="absolute top-8 left-8 bg-white/90 backdrop-blur p-6 rounded-3xl shadow-xl border border-gray-100 max-w-xs transition-transform group-hover:scale-105">
-               <h5 className="font-black text-dark mb-2">Expansion Map</h5>
-               <p className="text-xs text-muted mb-4">View planned distribution zones across the Greater Accra Region.</p>
-               <div className="flex items-center gap-2">
-                  <div className="w-2 h-2 bg-primary rounded-full animate-pulse"></div>
-                  <span className="text-[10px] font-bold uppercase text-primary">Pilot Phase 1</span>
-               </div>
             </div>
           </div>
         </div>

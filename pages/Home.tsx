@@ -1,8 +1,10 @@
 
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 
 const Home: React.FC = () => {
+  const [showPopup, setShowPopup] = useState(false);
+
   return (
     <div className="flex flex-col w-full overflow-hidden">
       {/* Coming Soon Banner */}
@@ -10,7 +12,7 @@ const Home: React.FC = () => {
         <div className="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-center gap-2 sm:gap-4 text-center">
           <p className="text-xs md:text-sm font-bold text-dark flex items-center gap-2">
             <span className="material-symbols-outlined text-primary text-[18px]">construction</span>
-            MyKart is launching soon — building Ghana’s community-powered grocery delivery platform.
+            MyKart is launching soon — building Ghana’s kommunity-powered grocery delivery platform.
           </p>
           <Link 
             to="/wireframes" 
@@ -37,7 +39,10 @@ const Home: React.FC = () => {
               Fresh produce from local Market Mamas and staples from trusted retailers like Shoprite, delivered by your dedicated Personal Shopper.
             </p>
             <div className="flex flex-col sm:flex-row gap-4">
-              <button className="px-8 py-4 bg-primary text-white font-bold rounded-2xl shadow-xl shadow-primary/30 hover:bg-orange-600 transition-all hover:scale-105 active:scale-95">
+              <button 
+                onClick={() => setShowPopup(true)}
+                className="px-8 py-4 bg-primary text-white font-bold rounded-2xl shadow-xl shadow-primary/30 hover:bg-orange-600 transition-all hover:scale-105 active:scale-95"
+              >
                 Download the App
               </button>
               <Link to="/wireframes" className="px-8 py-4 bg-white border border-gray-200 text-dark text-center font-bold rounded-2xl shadow-sm hover:bg-gray-50 transition-all active:scale-95">
@@ -117,7 +122,7 @@ const Home: React.FC = () => {
                    <div className="p-6 border-b border-gray-50 flex justify-between items-center">
                       <div className="flex items-center gap-2">
                          <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center text-white">
-                            <span className="material-symbols-outlined text-[18px]">shopping_basket</span>
+                            <span className="material-symbols-outlined text-[18px]">shopping_cart</span>
                          </div>
                          <span className="font-extrabold text-sm">MyKart</span>
                       </div>
@@ -157,7 +162,7 @@ const Home: React.FC = () => {
               {[
                 { title: 'Trusted by Families', text: 'Over 2,000 families in East Legon, Spintex, and Tema rely on us weekly.', icon: 'favorite' },
                 { title: 'Local Knowledge', text: 'We understand the difference between local market pricing and supermarket stock.', icon: 'map' },
-                { title: 'Community Focused', text: 'Every order supports local Market Mamas and reduces food waste.', icon: 'groups' }
+                { title: 'Kommunity Focused', text: 'Every order supports local Market Mamas and reduces food waste.', icon: 'groups' }
               ].map((item, idx) => (
                 <div key={idx} className="flex gap-4 p-4 rounded-2xl hover:bg-white transition-colors">
                   <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center text-primary shrink-0">
@@ -203,6 +208,38 @@ const Home: React.FC = () => {
           </div>
         </div>
       </section>
+
+      {/* Download Popup */}
+      {showPopup && (
+        <div className="fixed inset-0 z-[200] flex items-center justify-center p-4 bg-dark/60 backdrop-blur-sm animate-in fade-in duration-200">
+          <div className="bg-white rounded-[2.5rem] p-10 max-w-md w-full shadow-2xl animate-in zoom-in-95 duration-300">
+             <div className="w-20 h-20 bg-primary/10 rounded-3xl flex items-center justify-center text-primary mb-8 mx-auto">
+                <span className="material-symbols-outlined text-[40px]">construction</span>
+             </div>
+             <h3 className="text-3xl font-black text-center text-dark mb-4 tracking-tight">Working on it!</h3>
+             <p className="text-muted text-center leading-relaxed mb-8 font-medium">
+                We are not yet done but you can follow our progress on LinkedIn!
+             </p>
+             <div className="flex flex-col gap-3">
+                <a 
+                  href="https://www.linkedin.com/company/mykartstartup/posts/?feedView=all" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="w-full py-4 bg-dark text-white font-bold rounded-2xl text-center flex items-center justify-center gap-2 hover:bg-black transition-colors"
+                >
+                  Follow on LinkedIn
+                  <span className="material-symbols-outlined text-[20px]">link</span>
+                </a>
+                <button 
+                  onClick={() => setShowPopup(false)}
+                  className="w-full py-4 bg-gray-100 text-dark font-bold rounded-2xl hover:bg-gray-200 transition-colors"
+                >
+                  Close
+                </button>
+             </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

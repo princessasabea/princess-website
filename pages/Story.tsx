@@ -160,15 +160,11 @@ const Story: React.FC = () => {
         </div>
       </section>
 
-      {/* Ongoing Progress Footer */}
+      {/* Ongoing Progress Footer Area Cleaned up */}
       <section className="py-24 px-4 bg-bg-light border-t border-gray-100">
         <div className="max-w-6xl mx-auto text-center">
-           <div className="inline-flex items-center gap-2 px-4 py-2 bg-green-100 text-green-700 rounded-full font-black text-xs uppercase tracking-widest mb-8">
-              <span className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></span>
-              Development in Progress
-           </div>
            <h2 className="text-2xl font-black text-dark mb-4">Stay tuned for Chapter Two.</h2>
-           <p className="text-muted font-medium">Follow our socials to watch us build in real-time.</p>
+           <p className="text-muted font-medium">Follow our journey to watch us build in real-time.</p>
         </div>
       </section>
     </div>

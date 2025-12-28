@@ -11,16 +11,18 @@ const Vision: React.FC = () => {
              <span className="inline-block px-4 py-1 bg-white/10 backdrop-blur border border-white/20 text-white text-xs font-bold rounded-full mb-6 uppercase tracking-widest">Who We Are</span>
              <h1 className="text-4xl md:text-7xl font-black leading-tight mb-8">Reimagining Grocery Delivery in Ghana.</h1>
              <p className="text-xl text-gray-300 leading-relaxed max-w-lg">
-                MyKart was born from a simple observation: getting reliable groceries shouldn't be a gamble. We are bridging the gap between modern technology and local market realities.
+                MyKart was born from a simple observation: getting reliable groceries shouldn't be a gamble. We are bridging the gap between modern technology and local market realities through our vibrant Kommunity.
              </p>
           </div>
           <div className="flex-1">
              <div className="relative">
-                <img 
-                  src="https://lh3.googleusercontent.com/aida-public/AB6AXuAsZ58jMLtlO6dHHfH3oT7Vq4pVrN85PRF41guC12ZTdjmGqITPoyv38RKdkNbtk8i8k_8iXp6jGQ3HOlN9byF-kHUtagNhJsVpc7M1xWRRzyT832pQYIYMhbYq-Ja0APXZQA_9JCGyjkGQhXrT1oIyGpcsEUPFEoO4W84U81X1cHbVRFDAYQgogxDju2KQIDqcKKBtwHvCPxnsBbLBoTtozz3DxtRqeTS63XtXkeSS6Fyaqz1TZrNhFKH3FIbERQiOTlv31_WdT2A" 
-                  className="w-full rounded-[3rem] shadow-2xl border-4 border-white/10" 
-                  alt="Vision image"
-                />
+                <div className="relative mx-auto w-full max-w-[320px] aspect-[9/19] rounded-[3rem] border-[12px] border-black shadow-2xl overflow-hidden bg-bg-light">
+                   <img 
+                      src="https://lh3.googleusercontent.com/aida-public/AB6AXuDm9yQivXoP34fFXrvm3b9NKeSaOm5r5eHRJvlerRUuqNPSU_HiOxwYjTMo0jSnS_TWMKLj8Mn3HSKMpTzQJFb4YLdyAxhdyMuWVO9NoSNhhsiPTxbiqXyXQjIgVbwhDOQkz8Y84H9MuDKcxa_pJg1uu1TKknsamvOxkmv9srQc-Dl2uDxdVEvGA4vEpItcZTY8hpbQQdt9HsBCGdzX-7ze_XqrfFGDaA0ivmmYCD8eVRX4BSz-ukLXnhyCN3NVZKaUaBXSvotfkMA" 
+                      className="w-full h-full object-cover" 
+                      alt="MyKart App Interface"
+                   />
+                </div>
              </div>
           </div>
         </div>
@@ -78,7 +80,7 @@ const Vision: React.FC = () => {
                     <span className="text-muted font-bold text-xs uppercase tracking-widest mb-2 block">NEXT PHASE</span>
                     <h4 className="text-2xl font-black mb-4">Expansion & Infrastructure</h4>
                     <p className="text-muted leading-relaxed max-w-xl">
-                       Moving beyond groceries to daily essentials. Launching the "Deliverect" style infrastructure for B2B partners across West Africa.
+                       Moving beyond groceries to daily essentials. Launching the "Deliverect" style infrastructure for B2B partners across West Africa, powered by our Kommunity.
                     </p>
                  </div>
               </div>
