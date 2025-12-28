@@ -20,6 +20,7 @@ const Team: React.FC = () => {
       role: 'Founder & Project Lead',
       description: 'The visionary force behind MyKart, orchestrating the product roadmap and leading a global team to modernize Ghanaian retail.',
       category: 'lead',
+      linkedin: 'https://www.linkedin.com/in/ama-obeng-9b70912a1/'
     },
     {
       name: 'Alyn Tetteh',
