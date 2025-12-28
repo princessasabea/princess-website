@@ -11,8 +11,13 @@ interface ScheduleItem {
   status: 'Planned' | 'Active' | 'Expanding';
 }
 
-const TruckSchedule: React.FC = () => {
+interface TruckScheduleProps {
+  showHero?: boolean;
+}
+
+const TruckSchedule: React.FC<TruckScheduleProps> = ({ showHero = true }) => {
   const [activeTab, setActiveTab] = useState<Neighborhood>('East Legon');
+  const [showProposalPopup, setShowProposalPopup] = useState(false);
 
   const schedule: ScheduleItem[] = [
     { day: 'Monday', time: '10:00 AM - 12:00 PM', location: 'A&C Mall Parking', neighborhood: 'East Legon', status: 'Planned' },
@@ -29,43 +34,49 @@ const TruckSchedule: React.FC = () => {
   const filteredSchedule = schedule.filter(item => item.neighborhood === activeTab);
 
   return (
-    <div className="flex flex-col w-full bg-bg-light min-h-screen">
-      <section className="py-20 px-4 bg-white border-b border-gray-100">
-        <div className="max-w-6xl mx-auto flex flex-col md:flex-row items-center gap-12">
-          <div className="flex-1">
-            <div className="inline-flex items-center gap-2 px-3 py-1 bg-primary/10 rounded-full mb-6">
-              <span className="w-2 h-2 bg-primary rounded-full animate-pulse"></span>
-              <span className="text-xs font-black text-primary uppercase tracking-widest">Roadmap Phase 2</span>
-            </div>
-            <h1 className="text-5xl md:text-7xl font-black mb-6 text-dark tracking-tighter">Kommunity Truck.</h1>
-            <p className="text-xl text-muted leading-relaxed font-medium">
-              Bridging the accessibility gap. Our planned fleet of mobile distribution hubs will bring fresh market produce to neighborhoods outside standard delivery zones at wholesale prices.
-            </p>
-          </div>
-          <div className="flex-1 bg-primary/10 p-8 rounded-[3rem] border border-primary/20 relative overflow-hidden group">
-            <div className="relative z-10">
-              <div className="flex items-center gap-4 mb-6">
-                <div className="w-12 h-12 bg-primary rounded-2xl flex items-center justify-center text-white">
-                  <span className="material-symbols-outlined">notifications_active</span>
-                </div>
-                <div>
-                  <h4 className="font-bold">Beta Waitlist</h4>
-                  <p className="text-xs text-muted">Join 500+ households for early access.</p>
-                </div>
+    <div className={`flex flex-col w-full ${showHero ? 'bg-bg-light min-h-screen' : ''}`}>
+      {showHero && (
+        <section className="py-20 px-4 bg-white border-b border-gray-100">
+          <div className="max-w-6xl mx-auto flex flex-col md:flex-row items-center gap-12">
+            <div className="flex-1">
+              <div className="inline-flex items-center gap-2 px-3 py-1 bg-primary/10 rounded-full mb-6">
+                <span className="w-2 h-2 bg-primary rounded-full animate-pulse"></span>
+                <span className="text-xs font-black text-primary uppercase tracking-widest">Roadmap Phase 2</span>
               </div>
-              <div className="flex gap-2">
-                <input type="tel" placeholder="+233 XX XXX XXXX" className="flex-1 px-4 py-3 rounded-xl border border-gray-200 outline-none focus:ring-2 focus:ring-primary font-bold text-dark" />
-                <button className="px-6 py-3 bg-dark text-white font-bold rounded-xl text-sm hover:bg-black transition-colors">Apply</button>
+              <h1 className="text-5xl md:text-7xl font-black mb-6 text-dark tracking-tighter">Kommunity Truck.</h1>
+              <p className="text-xl text-muted leading-relaxed font-medium">
+                Bridging the accessibility gap. Our planned fleet of mobile distribution hubs will bring fresh market produce to neighborhoods outside standard delivery zones at wholesale prices.
+              </p>
+            </div>
+            <div className="flex-1 bg-primary/10 p-8 rounded-[3rem] border border-primary/20 relative overflow-hidden group">
+              <div className="relative z-10">
+                <div className="flex items-center gap-4 mb-6">
+                  <div className="w-12 h-12 bg-primary rounded-2xl flex items-center justify-center text-white">
+                    <span className="material-symbols-outlined">notifications_active</span>
+                  </div>
+                  <div>
+                    <h4 className="font-bold text-dark">Beta Waitlist</h4>
+                    <p className="text-xs text-muted">Join 500+ households for early access.</p>
+                  </div>
+                </div>
+                <a 
+                  href="https://tally.so/r/rjB4J2"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-full inline-block px-8 py-4 bg-primary text-white font-bold rounded-2xl text-center shadow-lg shadow-primary/20 hover:scale-105 transition-all"
+                >
+                  Join the Waitlist Now
+                </a>
+              </div>
+              <div className="absolute top-[-20px] right-[-20px] opacity-5 group-hover:opacity-10 transition-opacity">
+                <span className="material-symbols-outlined text-[150px]">local_shipping</span>
               </div>
             </div>
-            <div className="absolute top-[-20px] right-[-20px] opacity-5 group-hover:opacity-10 transition-opacity">
-              <span className="material-symbols-outlined text-[150px]">local_shipping</span>
-            </div>
           </div>
-        </div>
-      </section>
+        </section>
+      )}
 
-      <section className="py-20 px-4">
+      <section className={`${showHero ? 'py-20' : ''} px-4`}>
         <div className="max-w-6xl mx-auto">
           <div className="mb-12">
              <h2 className="text-3xl font-black text-dark tracking-tight">Planned Weekly Routes</h2>
@@ -140,10 +151,28 @@ const TruckSchedule: React.FC = () => {
                 </div>
               </div>
 
+              {!showHero && (
+                <div className="bg-primary/10 p-8 rounded-[2.5rem] border border-primary/20">
+                  <h4 className="font-bold text-dark mb-2">Join the Waitlist</h4>
+                  <p className="text-sm text-muted mb-6">Be the first to know when we launch in your area.</p>
+                  <a 
+                    href="https://tally.so/r/rjB4J2"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="w-full inline-block py-4 bg-primary text-white font-black rounded-2xl text-center shadow-lg shadow-primary/20 hover:scale-105 transition-all"
+                  >
+                    Apply Now
+                  </a>
+                </div>
+              )}
+
               <div className="bg-accent/20 p-8 rounded-[2.5rem] border border-accent/30">
                 <h4 className="font-bold text-dark mb-2">Request a New Stop</h4>
                 <p className="text-sm text-muted mb-6">Suggest a neighborhood landmark for our pilot expansion.</p>
-                <button className="w-full py-4 bg-white text-dark font-black rounded-2xl shadow-sm hover:shadow-md transition-all">
+                <button 
+                  onClick={() => setShowProposalPopup(true)}
+                  className="w-full py-4 bg-white text-dark font-black rounded-2xl shadow-sm hover:shadow-md transition-all active:scale-95"
+                >
                   Submit Proposal
                 </button>
               </div>
@@ -151,6 +180,33 @@ const TruckSchedule: React.FC = () => {
           </div>
         </div>
       </section>
+
+      {/* Proposal Popup */}
+      {showProposalPopup && (
+        <div className="fixed inset-0 z-[200] flex items-center justify-center p-4 bg-dark/60 backdrop-blur-sm animate-in fade-in duration-200">
+          <div className="bg-white rounded-[2.5rem] p-10 max-w-md w-full shadow-2xl animate-in zoom-in-95 duration-300 relative">
+             <button 
+                onClick={() => setShowProposalPopup(false)}
+                className="absolute top-6 right-6 text-muted hover:text-dark"
+             >
+                <span className="material-symbols-outlined">close</span>
+             </button>
+             <div className="w-20 h-20 bg-primary/10 rounded-3xl flex items-center justify-center text-primary mb-8 mx-auto">
+                <span className="material-symbols-outlined text-[40px]">construction</span>
+             </div>
+             <h3 className="text-3xl font-black text-center text-dark mb-4 tracking-tight">Coming soon in 2026!</h3>
+             <p className="text-muted text-center leading-relaxed mb-8 font-medium">
+                We're currently perfecting our logistics model. Expansion proposals will be processed starting in 2026!
+             </p>
+             <button 
+                onClick={() => setShowProposalPopup(false)}
+                className="w-full py-4 bg-dark text-white font-bold rounded-2xl hover:bg-black transition-colors"
+             >
+                Close
+             </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

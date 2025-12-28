@@ -17,30 +17,30 @@ const Delivery: React.FC = () => {
   const deliveryModes: DeliveryMode[] = [
     { 
       id: 'direct',
-      title: 'Direct Delivery', 
-      tag: 'REVOLUTIONARY IN GHANA', 
-      text: 'No hand-offs. Your Personal Shopper is also your Delivery Driver.',
+      title: 'Upcoming: Direct Delivery', 
+      tag: 'IN DEVELOPMENT', 
+      text: 'Our primary launch model. Your Personal Shopper is also your Delivery Driver.',
       icon: 'directions_car',
       img: 'https://lh3.googleusercontent.com/aida-public/AB6AXuA_kPOpx_83WwiEKqtZkWQfWRED61slNiHHp4tA3r6ZUHEsXhiQPXKDwjRXgnv7atk2A3mVKKQ2GENZzweXQ4dfNx9HVqXGM91i_H4ygzgzQGGo4wCgOgwaRm3Q9AqcufKJIZPqRmHHNkMd5bFh3NUWH6cZ6m_-Xa7VYy-U6EfrAEOztHKq2FajDxX71ooVpvws8MtUJXUTYTsFHpz8FWSZT0pvYcgupxgKivqfhcb52LOiAG8kgQcL5IBrl5rO47SL3FMkVz3_7NE',
-      longDesc: "Direct Delivery is a revolutionary model built specifically for the Ghanaian Kommunity. We have completely reimagined the grocery chain by merging the role of the Personal Shopper and the Delivery Driver into one trusted individual.\n\nIn typical apps, shoppers and riders are different people. At MyKart, the person who picks your tomatoes at Shoprite is the same person who drives them to your door. This ensures absolute accountability and eliminates the 'broken link' often found in multi-stage deliveries. Your dedicated Shopper ensures every item is fresh, then personally handles the delivery in a salon car to shield your groceries from heat and dust. It is a revolutionary approach to trust and quality in Accra and Tema."
+      longDesc: "Planned Direct Delivery is a revolutionary model built specifically for the Ghanaian context. We are reimagining the grocery chain by merging the role of the Personal Shopper and the Delivery Driver into one trusted individual.\n\nIn typical apps, shoppers and riders are different people. At MyKart, we are building a system where the person who picks your tomatoes is the same person who drives them to your door. This ensures absolute accountability and eliminates the 'broken link' often found in multi-stage deliveries. Your dedicated Shopper will ensure every item is fresh, then personally handle the delivery in a salon car to shield your groceries from heat and dust."
     },
     { 
       id: 'truck',
-      title: 'Kommunity Truck', 
-      tag: 'BULK & SOCIAL', 
-      text: 'Bulk purchasing and flexible pick-up options for a wider audience.',
+      title: 'Planned: Kommunity Truck', 
+      tag: 'LOGISTICS PHASE 2', 
+      text: 'Bulk purchasing and flexible neighborhood hubs for a wider audience.',
       icon: 'groups',
       img: 'https://lh3.googleusercontent.com/aida-public/AB6AXuAqsLfSScRC9-KJf0BkFs7yI_o_4Ii2oZw9MQrSvz7XwgF7cRozZJoyI7nIrV6Oud_dSRZeaLnZDxb8h4tQF-5HlttV5ZlDz4mGGTAE6v2yGksl5cve1qg2PXzQPF4dfTP_btEwRUigXlkmWS97Mh5pRKsLTkDNu5DKu6yJxvBUCo9kL9lLHy3GZpGTc5CyeXVIXe3UrLcrsOq4ZE2pKnxlPJkad-JM3hbKO4f6YNX-VdjFEGGJNhnc_SC2SsZpW9biiVUe0HPWcCc',
-      longDesc: "The Kommunity Truck is our answer to making high-quality groceries accessible and affordable to a wider audience. This option allows users to purchase in bulk at significant savings, perfectly suited for large households and neighborhood co-ops.\n\nWe offer unparalleled flexibility: if you're busy during truck hours, you can designate a neighbor you trust to pick up your order. You can also choose from various designated pick-up spots throughout the week based on our published schedule. Our system allows you to join routes, follow the truck coming to your area, and see who else has started an order to unlock collective discounts. It's about more than just food; it's about shopping together as a Kommunity."
+      longDesc: "The upcoming Kommunity Truck is our answer to making high-quality groceries accessible and affordable to a wider audience. This planned option allows users to purchase in bulk at significant savings, perfectly suited for large households and neighborhood co-ops.\n\nWe are designing for unparalleled flexibility: choosing from various designated pick-up spots throughout the week based on our published schedule. Our system will allow you to follow the truck coming to your area and see who else has started an order to unlock collective discounts. It's about more than just food; it's about shopping together as a Kommunity."
     },
     { 
       id: 'express',
-      title: 'Express Bike', 
-      tag: 'FASTEST', 
-      text: 'For small orders and exclusive meals from featured chefs.',
+      title: 'Upcoming: Express Bike', 
+      tag: 'PHASE 1 EXPANSION', 
+      text: 'For small top-up orders and exclusive chef-curated meals.',
       icon: 'bolt',
       img: 'https://lh3.googleusercontent.com/aida-public/AB6AXuBX6IdYG5gZ1ig2wwDuzW1Mh_wiMfLWi3jezSpif86v-fv38DOYqc-IMn5DTyCLwoTLqUpmwGkr5iajlR7uKDM8nRzPpNxbImA7-jPCuKEsRQGn5eTDAIuF9aIK4SY40Bpbixu9vFzfie63ZW8OZlVVkM3ehDr7FSu1jqP9YKhR7m7_YzYucKJpH89wwG6y7Lr3vq41_UsiUvie35X1cEvEviNRrxn4DodCc7Z-wEGszVFnaWKNa2ybjzqq1wMt3JeqShj_VVYZb7k',
-      longDesc: "Express Bike is built for those 'just in time' moments. It's the perfect solution for small top-up orders of essential items that can navigate traffic quickly to reach you.\n\nAdditionally, this mode handles our upcoming 'Chef Orders' feature. We are partnering with local culinary talent to deliver curated recipe packs and exclusive, high-quality meals directly to your door. When speed is paramount for your light shopping or gourmet needs, Express Bike is the most efficient choice."
+      longDesc: "Express Bike is currently being planned for those 'just in time' moments. It's the perfect solution for small top-up orders of essential items that can navigate traffic quickly to reach you.\n\nAdditionally, this mode will handle our upcoming 'Chef Orders' feature. We are currently identifying local culinary talent to deliver curated recipe packs and exclusive, high-quality meals directly to your door. When speed is paramount for your light shopping or gourmet needs, Express Bike will be the most efficient choice."
     }
   ];
 
@@ -49,9 +49,10 @@ const Delivery: React.FC = () => {
       <section className="py-16 md:py-24 px-4">
         <div className="max-w-6xl mx-auto">
           <div className="max-w-2xl mb-16">
-            <h1 className="text-4xl md:text-7xl font-extrabold leading-tight mb-6">Delivery Your Way</h1>
+            <span className="text-primary font-bold text-xs uppercase tracking-widest block mb-4">Infrastructure Planning</span>
+            <h1 className="text-4xl md:text-7xl font-extrabold leading-tight mb-6">Planned Delivery Ecosystem</h1>
             <p className="text-xl text-muted leading-relaxed">
-              From the city center to the outskirts, we get it to you. Choose the method that fits your schedule, location, and budget.
+              We are perfecting several modes of delivery to ensure we reach every corner of the community efficiently.
             </p>
           </div>
 
@@ -72,7 +73,7 @@ const Delivery: React.FC = () => {
                     onClick={() => setSelectedDetail(item)}
                     className="flex items-center gap-2 text-primary font-bold hover:gap-4 transition-all"
                   >
-                    Explore Details <span className="material-symbols-outlined">arrow_forward</span>
+                    View Planned Details <span className="material-symbols-outlined">arrow_forward</span>
                   </button>
                 </div>
               </div>
@@ -96,7 +97,7 @@ const Delivery: React.FC = () => {
                   <span className="material-symbols-outlined text-[24px]">{selectedDetail.icon}</span>
                 </div>
                 <div>
-                  <h2 className="text-3xl font-black text-dark">{selectedDetail.title}</h2>
+                  <h2 className="text-3xl font-black text-dark">Upcoming Feature</h2>
                   <p className="text-primary font-bold text-xs uppercase tracking-widest">{selectedDetail.tag}</p>
                 </div>
               </div>
@@ -125,7 +126,7 @@ const Delivery: React.FC = () => {
                 onClick={() => setSelectedDetail(null)}
                 className="px-8 py-3 bg-dark text-white font-bold rounded-xl hover:bg-black transition-all"
               >
-                Got it
+                Close Preview
               </button>
             </div>
           </div>

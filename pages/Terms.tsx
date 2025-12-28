@@ -11,7 +11,7 @@ const Terms: React.FC = () => {
         <div className="prose prose-lg text-muted space-y-8">
            <section>
               <h3 className="text-2xl font-black text-dark mb-4">1. Acceptance of Terms</h3>
-              <p>By accessing and using MyKart, you agree to be bound by these Terms of Service. If you do not agree to all of these terms, do not use our services.</p>
+              <p>By accessing and using MyKart, you agree to be bound by these Terms of Service. If you do not agree to all of these terms, please do not use our services.</p>
            </section>
 
            <section>

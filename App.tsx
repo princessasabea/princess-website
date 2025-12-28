@@ -14,6 +14,57 @@ import TruckSchedule from './pages/TruckSchedule';
 import Story from './pages/Story';
 import Terms from './pages/Terms';
 
+// Component to handle scroll to top or scroll to anchor on route change
+const ScrollToTop: React.FC = () => {
+  const { pathname, hash } = useLocation();
+  
+  useEffect(() => {
+    if (!hash) {
+      window.scrollTo(0, 0);
+    } else {
+      const id = hash.replace('#', '');
+      const element = document.getElementById(id);
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth' });
+      }
+    }
+  }, [pathname, hash]);
+
+  return null;
+};
+
+const BackToTop: React.FC = () => {
+  const [visible, setVisible] = useState(false);
+
+  useEffect(() => {
+    const toggleVisible = () => {
+      if (window.scrollY > 300) {
+        setVisible(true);
+      } else {
+        setVisible(false);
+      }
+    };
+    window.addEventListener('scroll', toggleVisible);
+    return () => window.removeEventListener('scroll', toggleVisible);
+  }, []);
+
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  if (!visible) return null;
+
+  return (
+    <button 
+      onClick={scrollToTop}
+      className="fixed bottom-8 right-8 z-[60] w-14 h-14 bg-primary text-white rounded-full shadow-2xl flex items-center justify-center hover:scale-110 transition-all active:scale-90 animate-in fade-in slide-in-from-bottom-4 duration-300"
+      aria-label="Back to top"
+    >
+      <span className="material-symbols-outlined text-3xl">arrow_upward</span>
+    </button>
+  );
+};
+
 const Navbar: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
   const location = useLocation();
@@ -81,7 +132,7 @@ const Footer: React.FC = () => (
           <span className="text-xl font-black text-dark">MyKart</span>
         </div>
         <p className="text-muted text-sm leading-relaxed max-sm mb-6">
-          Ghana's first reliable grocery delivery ecosystem. We connect modern shoppers with fresh market produce and trusted retailers.
+          Ghana's first reliable grocery delivery ecosystem — currently in production. We are building connections between modern shoppers and fresh market produce.
         </p>
         <div className="flex gap-4">
           <a href="https://www.linkedin.com/company/mykartstartup/posts/?feedView=all" target="_blank" rel="noopener noreferrer" className="w-10 h-10 bg-gray-50 rounded-full flex items-center justify-center text-muted hover:bg-primary hover:text-white transition-all" title="LinkedIn">
@@ -111,7 +162,7 @@ const Footer: React.FC = () => (
       </div>
     </div>
     <div className="max-w-6xl mx-auto mt-12 pt-8 border-t border-gray-100 text-center">
-      <p className="text-xs text-muted/60">© 2025 MyKart Ghana. Reimagining retail for the Ghanaian context.</p>
+      <p className="text-xs text-muted/60">© 2025 MyKart Ghana. Reimagining retail for the Ghanaian context. Launching Soon.</p>
     </div>
   </footer>
 );
@@ -119,6 +170,7 @@ const Footer: React.FC = () => (
 const App: React.FC = () => {
   return (
     <HashRouter>
+      <ScrollToTop />
       <div className="min-h-screen flex flex-col">
         <Navbar />
         <main className="flex-1">
@@ -138,6 +190,7 @@ const App: React.FC = () => {
           </Routes>
         </main>
         <Footer />
+        <BackToTop />
       </div>
     </HashRouter>
   );

@@ -34,37 +34,26 @@ const Contact: React.FC = () => {
             </div>
           </div>
 
-          <div className="bg-white p-10 rounded-[3rem] shadow-xl shadow-gray-200/50 border border-gray-100">
-             <form className="space-y-6" onSubmit={(e) => e.preventDefault()}>
-                <div>
-                   <label className="block text-sm font-bold mb-2 text-dark">Full Name</label>
-                   <input 
-                     type="text" 
-                     placeholder="Jane Doe" 
-                     className="w-full px-6 py-4 rounded-2xl border border-gray-300 bg-bg-light text-dark focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all font-medium" 
-                   />
-                </div>
-                <div>
-                   <label className="block text-sm font-bold mb-2 text-dark">Email Address</label>
-                   <input 
-                     type="email" 
-                     placeholder="jane@example.com" 
-                     className="w-full px-6 py-4 rounded-2xl border border-gray-300 bg-bg-light text-dark focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all font-medium" 
-                   />
-                </div>
-                <div>
-                   <label className="block text-sm font-bold mb-2 text-dark">Message</label>
-                   <textarea 
-                     rows={4} 
-                     placeholder="How can we help you?" 
-                     className="w-full px-6 py-4 rounded-2xl border border-gray-300 bg-bg-light text-dark focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all resize-none font-medium"
-                   ></textarea>
-                </div>
-                <button className="w-full py-5 bg-primary text-white font-black text-lg rounded-2xl shadow-xl shadow-primary/30 flex items-center justify-center gap-3 hover:bg-orange-600 transition-all">
-                   Send Message
-                   <span className="material-symbols-outlined">send</span>
-                </button>
-             </form>
+          <div className="flex items-center">
+            <div className="w-full bg-white p-10 md:p-12 rounded-[3rem] shadow-xl shadow-gray-200/50 border border-gray-100 text-center flex flex-col items-center justify-center">
+               <div className="w-20 h-20 bg-primary/10 rounded-3xl flex items-center justify-center text-primary mb-8">
+                  <span className="material-symbols-outlined text-[40px]">forum</span>
+               </div>
+               <h3 className="text-3xl font-black text-dark mb-4">Message Our Team</h3>
+               <p className="text-muted text-lg mb-10 leading-relaxed">
+                  To ensure we capture all your details correctly, we use a secure form for all inquiries.
+               </p>
+               <a 
+                 href="https://tally.so/r/aQeLEW" 
+                 target="_blank" 
+                 rel="noopener noreferrer"
+                 className="w-full py-5 bg-primary text-white font-black text-xl rounded-2xl shadow-xl shadow-primary/30 flex items-center justify-center gap-3 hover:bg-orange-600 transition-all hover:scale-105 active:scale-95"
+               >
+                  Send a message
+                  <span className="material-symbols-outlined">send</span>
+               </a>
+               <p className="mt-6 text-xs text-muted/60 font-bold uppercase tracking-widest">Powered by Tally Forms</p>
+            </div>
           </div>
         </div>
       </section>
