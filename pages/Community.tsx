@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 const Community: React.FC = () => {
   return (
     <div className="flex flex-col w-full">
-      {/* Community Hero */}
+      {/* Kommunity Hero */}
       <section className="relative h-[60vh] flex items-end">
         <div className="absolute inset-0 z-0">
           <img 
@@ -30,8 +30,12 @@ const Community: React.FC = () => {
           <div className="flex-1">
             <h2 className="text-primary text-sm font-bold tracking-widest uppercase mb-4">VENDOR SUPPORT</h2>
             <h3 className="text-3xl md:text-5xl font-extrabold mb-6">Direct from Market Mamas</h3>
-            <p className="text-muted text-lg leading-relaxed mb-8">
+            <p className="text-muted text-lg leading-relaxed mb-6">
               We partner with over 200 local vendors across Makola, Agbogbloshie, and Tema to bring authentic freshness to your door. By digitising their inventory, we help traditional vendors reach a new generation of customers in our growing Kommunity.
+            </p>
+            <p className="text-primary font-bold text-sm mb-8 flex items-center gap-2 italic">
+              <span className="material-symbols-outlined text-[18px]">auto_awesome</span>
+              In the future, we aim to provide automated inventory syncing and real-time sales analytics for every stall owner.
             </p>
             <div className="grid grid-cols-2 gap-4">
               <div className="p-6 bg-cream rounded-2xl text-center">

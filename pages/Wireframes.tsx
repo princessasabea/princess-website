@@ -9,7 +9,7 @@ const Wireframes: React.FC = () => {
     { 
       title: "Authentication", 
       description: "Secure login/signup with Ghana Card integration.",
-      img: "/sign-in.png" 
+      img: "/signin.png" 
     },
     { 
       title: "Become a Partner", 
@@ -24,17 +24,17 @@ const Wireframes: React.FC = () => {
     { 
       title: "Order History", 
       description: "Transparent log of all past and current orders.",
-      img: "//order-history.png" 
+      img: "/order%20history%20screen.png" 
     },
     { 
       title: "Roommate Run", 
-      description: "Shared group carts for kommunity purchasing.",
-      img: "/group-order.png" 
+      description: "Shared group carts for Kommunity purchasing.",
+      img: "/group%20order%20screen.png" 
     },
     { 
       title: "Active Tracking", 
       description: "Live GPS updates for direct and truck deliveries.",
-      img: "/chef scrren.png" 
+      img: "https://lh3.googleusercontent.com/aida-public/AB6AXuDm9yQivXoP34fFXrvm3b9NKeSaOm5r5eHRJvlerRUuqNPSU_HiOxwYjTMo0jSnS_TWMKLj8Mn3HSKMpTzQJFb4YLdyAxhdyMuWVO9NoSNhhsiPTxbiqXyXQjIgVbwhDOQkz8Y84H9MuDKcxa_pJg1uu1TKknsamvOxkmv9srQc-Dl2uDxdVEvGA4vEpItcZTY8hpbQQdt9HsBCGdzX-7ze_XqrfFGDaA0ivmmYCD8eVRX4BSz-ukLXnhyCN3NVZKaUaBXSvotfkMA" 
     }
   ];
 

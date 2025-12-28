@@ -33,7 +33,7 @@ const Story: React.FC = () => {
                 <h2 className="text-3xl md:text-4xl font-black text-dark">A Student Spark</h2>
                 <div className="text-muted text-lg leading-relaxed font-medium space-y-4">
                   <p>
-                    MyKart started with a simple, hungry idea: a small group of students looking to create an UberEats-style app for the Ghanaian community. But we wanted something <span className="text-dark font-bold underline decoration-primary decoration-4">different</span>. 
+                    MyKart started with a simple, hungry idea: a small group of students looking to create an UberEats-style app for the Ghanaian Kommunity. But we wanted something <span className="text-dark font-bold underline decoration-primary decoration-4">different</span>. 
                   </p>
                   <p>
                     We wanted to blend global technology with what we call a <span className="italic text-primary font-bold">"Swift Culture Touch"</span>—a modern, fast-paced approach that respects traditional market values while embracing digital speed.
