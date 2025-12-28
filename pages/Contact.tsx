@@ -79,3 +79,7 @@ const Contact: React.FC = () => {
 };
 
 export default Contact;
+  );
+};
+
+export default Contact;
