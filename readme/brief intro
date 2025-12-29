@@ -1,0 +1,72 @@
+MyKart — Public Brand Website
+
+This repository contains the public-facing brand website for MyKart.
+
+The site is used to communicate MyKart’s vision, concept, and upcoming features.
+It is not the MyKart application or delivery platform.
+
+⸻
+
+🌍 Live Website
+
+Production URL: https://www.mykartgrocery.com
+
+⸻
+
+📌 Purpose of This Website
+
+This website exists to:
+	•	Present the MyKart brand and vision
+	•	Explain the problem MyKart is solving
+	•	Showcase concept features (e.g. Community Truck, group orders)
+	•	Build early awareness and interest
+	•	Serve as a landing page for a future platform
+
+⚠️ This site does not process real orders, payments, or deliveries.
+
+⸻
+
+🧠 What This Is NOT
+
+This repository does not include:
+	•	The MyKart web or mobile application
+	•	Backend services
+	•	Payment processing
+	•	Vendor or delivery integrations
+	•	User authentication
+
+All product features shown are conceptual or mock-only.
+
+⸻
+
+🚀 Tech & Infrastructure
+	•	Type: Static / marketing website
+	•	Hosting: Vercel
+	•	Domain Management: Squarespace
+	•	Deployment: Git-based continuous deployment
+
+⸻
+
+⚙️ Deployment Workflow
+
+The site is deployed automatically via Vercel.
+
+Workflow:
+	1.	Code is pushed to the main branch
+	2.	Vercel detects changes
+	3.	The site is built and deployed automatically
+	4.	Preview URLs are generated for testing changes before production
+
+⸻
+
+🌐 Environments
+	•	Production:
+	•	Live public website
+	•	Connected to the custom domain
+	•	Preview:
+	•	Vercel-generated preview links
+	•	Used for reviewing updates and UI changes
+
+⸻
+
+📁 Repository Structure
