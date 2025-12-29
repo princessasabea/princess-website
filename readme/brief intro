@@ -69,4 +69,35 @@ Workflow:
 
 ⸻
 
-📁 Repository Structure
+🔒 Scope & Limitations
+	•	No real transactions
+	•	No user accounts
+	•	No data persistence
+	•	No third-party service integrations
+
+The website is informational only.
+
+⸻
+
+🧭 Future Direction
+	•	A separate repository will host the actual MyKart platform
+	•	This site will later link to:
+	•	Apps
+	•	Vendor portals
+	•	Community features
+	•	Content and messaging will evolve as the product matures
+
+⸻
+
+🛒 About MyKart
+
+MyKart is a community-first grocery and commerce initiative focused on solving delivery access and logistics challenges in Ghana through innovative models like group ordering and community-based delivery.
+
+⸻
+
+Status
+
+✅ Live
+✅ Public brand website
+🚧 Pre-platform phase
+
