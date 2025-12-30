@@ -171,7 +171,61 @@ const Wireframes: React.FC = () => {
           <div className="absolute inset-y-0 left-0 w-32 bg-gradient-to-r from-bg-light to-transparent z-10 pointer-events-none"></div>
           <div className="absolute inset-y-0 right-0 w-32 bg-gradient-to-l from-bg-light to-transparent z-10 pointer-events-none"></div>
         </div>
-
+        {/* --- NEW: ROOMMATE RUN / CAMPUS LAUNCH SPOTLIGHT SECTION --- */}
+        <section className="mx-auto max-w-6xl px-4">
+           <div className="bg-[#FFF8F0] rounded-[3rem] p-8 md:p-16 overflow-hidden border border-orange-100 relative">
+             <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center relative z-10">
+                <div className="order-2 lg:order-1">
+                   <div className="inline-flex items-center gap-2 px-4 py-2 bg-white text-primary font-bold rounded-full text-sm mb-6 shadow-sm border border-orange-100">
+                      <span className="relative flex h-3 w-3">
+                        <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
+                        <span className="relative inline-flex rounded-full h-3 w-3 bg-primary"></span>
+                      </span>
+                      Launching First at University of Ghana 🇬🇭
+                   </div>
+                   <h2 className="text-4xl md:text-5xl font-black text-dark mb-6 leading-tight">
+                      Roommate Run: <br />
+                      <span className="text-primary">Split the Bill,</span> Not the Vibes.
+                   </h2>
+                   <p className="text-lg text-muted leading-relaxed mb-8">
+                      Living in <strong>Legon Hall, Volta, or Pent?</strong> Stop paying full delivery fees for solo orders. 
+                      Our "Roommate Run" feature lets you build a shared cart with your roommates in real-time.
+                   </p>
+                   <div className="space-y-4">
+                      <div className="flex items-start gap-4">
+                         <div className="w-10 h-10 bg-white rounded-xl shadow-sm flex items-center justify-center text-primary shrink-0 mt-1">
+                            <span className="material-symbols-outlined">call_split</span>
+                         </div>
+                         <div>
+                            <h4 className="font-bold text-dark">Split Payments Instantly</h4>
+                            <p className="text-sm text-muted">Everyone pays their exact share via Mobile Money. No more "I owe you".</p>
+                         </div>
+                      </div>
+                      <div className="flex items-start gap-4">
+                         <div className="w-10 h-10 bg-white rounded-xl shadow-sm flex items-center justify-center text-primary shrink-0 mt-1">
+                            <span className="material-symbols-outlined">savings</span>
+                         </div>
+                         <div>
+                            <h4 className="font-bold text-dark">Slash Delivery Fees</h4>
+                            <p className="text-sm text-muted">Split one delivery fee among 4 people. Save up to 15 GHS per order.</p>
+                         </div>
+                      </div>
+                   </div>
+                </div>
+                <div className="order-1 lg:order-2 flex justify-center">
+                   <div className="relative w-[280px] rotate-3 hover:rotate-0 transition-all duration-500">
+                      <img 
+                        src="https://raw.githubusercontent.com/princessasabea/princess-website/a73b75287274cf45ce2f7e2de7ef9914b9ed6f28/public/legonroomate.png" 
+                        alt="MyKart Roommate Run Feature Screen" 
+                        className="w-full rounded-[2.5rem] shadow-2xl border-8 border-white"
+                      />
+                   </div>
+                </div>
+             </div>
+             {/* Decorative blob */}
+             <div className="absolute top-0 right-0 w-96 h-96 bg-orange-200/20 rounded-full blur-3xl -z-0 translate-x-1/2 -translate-y-1/2"></div>
+           </div>
+        </section>
         {/* Unified Kommunity Truck & Logistics Space */}
         <div className="max-w-6xl mx-auto px-4 w-full flex flex-col gap-12">
           <div id="kommunity-truck" className="bg-white rounded-[4rem] border border-gray-100 shadow-2xl overflow-hidden">
