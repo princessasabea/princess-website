@@ -32,7 +32,7 @@ const Home: React.FC = () => {
               <span className="text-xs font-bold text-primary uppercase tracking-wider">Launching Soon in Accra & Tema</span>
             </div>
             <h1 className="text-4xl md:text-7xl font-extrabold leading-[1.1] tracking-tight text-dark mb-6">
-              Building grocery delivery, <br/>
+              Building Ghana's grocery delivery, <br/>
               <span className="text-primary italic">for ultimate reliability.</span>
             </h1>
             <p className="text-lg md:text-xl text-muted font-medium leading-relaxed mb-8 max-w-lg">
@@ -43,7 +43,7 @@ const Home: React.FC = () => {
                 onClick={() => setShowPopup(true)}
                 className="px-8 py-4 bg-primary text-white font-bold rounded-2xl shadow-xl shadow-primary/30 hover:bg-orange-600 transition-all hover:scale-105 active:scale-95"
               >
-                App Launching 2026
+                App Launching late 2026
               </button>
               <a 
                 href="https://tally.so/r/rjB4J2"
