@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { HashRouter, Routes, Route, Link, useLocation } from 'react-router-dom';
 import Home from './pages/Home';
@@ -77,9 +76,8 @@ const Navbar: React.FC<{ onToggle: (open: boolean) => void }> = ({ onToggle }) =
     <nav className="sticky top-0 z-[100] w-full bg-bg-light border-b border-gray-100 shadow-sm">
       <div className="max-w-6xl mx-auto px-4 py-3 flex justify-between items-center relative z-[110]">
         <Link to="/" className="flex items-center gap-2 group">
-          <div className="w-9 h-9 bg-primary rounded-lg flex items-center justify-center text-white shadow-lg shadow-primary/20 group-hover:scale-110 transition-transform">
-            <span className="material-symbols-outlined text-[20px]">shopping_cart</span>
-          </div>
+          {/* UPDATED LOGO HERE */}
+          <img src="/logo.png" alt="MyKart Logo" className="h-10 w-auto object-contain" />
           <span className="text-xl font-extrabold tracking-tight text-dark">MyKart</span>
         </Link>
 
@@ -140,9 +138,8 @@ const Footer: React.FC = () => (
     <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-12">
       <div className="col-span-1 md:col-span-2">
         <div className="flex items-center gap-2 mb-4">
-          <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center text-white">
-            <span className="material-symbols-outlined text-[18px]">shopping_cart</span>
-          </div>
+          {/* UPDATED LOGO HERE */}
+          <img src="/logo.png" alt="MyKart Logo" className="h-8 w-auto object-contain" />
           <span className="text-xl font-black text-dark">MyKart</span>
         </div>
         <p className="text-muted text-sm leading-relaxed max-sm mb-6">
