@@ -6,7 +6,7 @@ const Privacy: React.FC = () => {
     <div className="flex flex-col w-full bg-white py-24 px-4">
       <div className="max-w-3xl mx-auto">
         <h1 className="text-4xl md:text-7xl font-black mb-4">Privacy Policy</h1>
-        <p className="text-muted mb-12">Last updated: January 1, 2025</p>
+        <p className="text-muted mb-12">Last updated: January 1, 2026</p>
         
         <div className="prose prose-lg text-muted space-y-8">
            <section>
