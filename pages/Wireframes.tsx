@@ -1,82 +1,203 @@
 import React, { useState, useEffect, useRef } from 'react';
 import TruckSchedule from './TruckSchedule';
 
+// --- COMPONENT 1: REALISTIC TRUCK SIMULATION WITH STOPS ---
 const LiveTruckMap: React.FC = () => {
-  const [isMoving, setIsMoving] = useState(true);
   const [progress, setProgress] = useState(0);
+  const [isStopped, setIsStopped] = useState(false);
+  const [stopTimer, setStopTimer] = useState(0);
+
+  // Stop point (percentage of path)
+  const STOP_POINT = 48; // Stops near the middle (Accra Mall)
 
   useEffect(() => {
-    let interval: any;
-    if (isMoving) {
-      interval = setInterval(() => {
-        setProgress((prev) => (prev >= 100 ? 0 : prev + 0.5));
-      }, 50);
-    }
-    return () => clearInterval(interval);
-  }, [isMoving]);
+    let animationFrameId: number;
+    
+    const animate = () => {
+      if (isStopped) {
+        // Truck is waiting at the mall
+        if (Date.now() > stopTimer) {
+           setIsStopped(false); // Resume driving
+        }
+      } else {
+        setProgress((prev) => {
+          // Check if we reached the stop point and haven't stopped yet recently
+          // We use a small range logic to catch the frame
+          if (prev >= STOP_POINT && prev < STOP_POINT + 0.5 && stopTimer === 0) {
+            setIsStopped(true);
+            setStopTimer(Date.now() + 3000); // Stop for 3 seconds
+            return STOP_POINT;
+          }
 
-  const getPathPos = (p: number) => {
-    const x = p;
-    const y = 50 + Math.sin(p * 0.1) * 20;
+          // Reset stop timer if we are past the point (looping back)
+          if (prev < STOP_POINT) {
+             setStopTimer(0);
+          }
+
+          // Loop seamlessly
+          if (prev >= 100) return 0;
+          return prev + 0.15; // Speed
+        });
+      }
+      animationFrameId = requestAnimationFrame(animate);
+    };
+
+    animationFrameId = requestAnimationFrame(animate);
+    return () => cancelAnimationFrame(animationFrameId);
+  }, [isStopped, stopTimer]);
+
+  // Cubic Bezier Path Logic
+  const getBezierPos = (t: number) => {
+    const safeT = Math.max(0, Math.min(1, t));
+    const p0 = { x: -10, y: 80 }; 
+    const p1 = { x: 40, y: 80 }; 
+    const p2 = { x: 60, y: 20 };  
+    const p3 = { x: 110, y: 20 }; 
+    
+    const oneMinusT = 1 - safeT;
+    const x = Math.pow(oneMinusT, 3) * p0.x + 3 * Math.pow(oneMinusT, 2) * safeT * p1.x + 3 * oneMinusT * Math.pow(safeT, 2) * p2.x + Math.pow(safeT, 3) * p3.x;
+    const y = Math.pow(oneMinusT, 3) * p0.y + 3 * Math.pow(oneMinusT, 2) * safeT * p1.y + 3 * oneMinusT * Math.pow(safeT, 2) * p2.y + Math.pow(safeT, 3) * p3.y;
     return { x, y };
   };
 
-  const pos = getPathPos(progress);
+  const t = progress / 100;
+  const pos = getBezierPos(t);
+  
+  // Rotation calculation
+  const lookAheadPos = getBezierPos(Math.min(1, t + 0.01));
+  const angle = Math.atan2(lookAheadPos.y - pos.y, lookAheadPos.x - pos.x) * (180 / Math.PI);
 
   return (
-    <div className="w-full h-full bg-[#e5e7eb] relative overflow-hidden rounded-[2rem] border-4 border-dark shadow-2xl">
-      <div className="absolute inset-0 opacity-20" 
-           style={{ backgroundImage: 'radial-gradient(#000 1px, transparent 1px)', backgroundSize: '24px 24px' }}></div>
+    <div className="w-full h-full bg-[#e5e7eb] dark:bg-[#1a1a1a] relative overflow-hidden rounded-[2rem] border-4 border-dark dark:border-gray-700 shadow-2xl transition-colors duration-300">
+      <div className="absolute inset-0 opacity-10 dark:opacity-20" style={{ backgroundImage: 'linear-gradient(#000 1px, transparent 1px), linear-gradient(90deg, #000 1px, transparent 1px)', backgroundSize: '40px 40px' }}></div>
+      
+      {/* Map Landmarks */}
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 flex flex-col items-center z-0">
+         <div className="w-32 h-24 bg-gray-300 dark:bg-white/5 rounded-xl border-2 border-black/5 mb-2"></div>
+         <span className="text-[10px] font-black uppercase text-muted tracking-widest">Accra Mall Hub</span>
+      </div>
+
+      {/* Road */}
       <svg className="absolute inset-0 w-full h-full" viewBox="0 0 100 100" preserveAspectRatio="none">
-        <path d="M0,50 Q25,30 50,50 T100,50" fill="none" stroke="#fff" strokeWidth="6" strokeLinecap="round" opacity="0.8" />
-        <path d="M20,0 V100" fill="none" stroke="#fff" strokeWidth="2" strokeDasharray="6" opacity="0.5" />
-        <path d="M80,0 V100" fill="none" stroke="#fff" strokeWidth="2" strokeDasharray="6" opacity="0.5" />
-        <path d="M0,20 H100" fill="none" stroke="#fff" strokeWidth="1" strokeDasharray="4" opacity="0.3" />
-        <path d="M0,80 H100" fill="none" stroke="#fff" strokeWidth="1" strokeDasharray="4" opacity="0.3" />
+        <path d="M -10,80 C 40,80 60,20 110,20" fill="none" stroke="#a0aec0" strokeWidth="12" strokeLinecap="round" />
+        <path d="M -10,80 C 40,80 60,20 110,20" fill="none" stroke="#4a5568" strokeWidth="10" strokeLinecap="round" />
+        <path d="M -10,80 C 40,80 60,20 110,20" fill="none" stroke="#fbbf24" strokeWidth="1" strokeDasharray="4 4" strokeLinecap="round" />
       </svg>
-      <div className="absolute top-[40%] right-[10%] text-primary animate-bounce">
-        <span className="material-symbols-outlined text-4xl drop-shadow-md">location_on</span>
-      </div>
-      <div 
-        className="absolute w-16 h-16 bg-white dark:bg-white/5 rounded-2xl shadow-2xl flex flex-col items-center justify-center border-2 border-primary transition-all duration-75 ease-linear z-20"
-        style={{ left: `${pos.x}%`, top: `${pos.y}%`, transform: 'translate(-50%, -50%)' }}
-      >
-        <span className="material-symbols-outlined text-primary text-3xl">local_shipping</span>
-        <div className="absolute -top-10 bg-primary text-white text-[10px] px-3 py-1 rounded-full whitespace-nowrap font-black uppercase tracking-widest shadow-lg border border-white/20">
-          K-Truck En Route
-        </div>
-      </div>
-      <div className="absolute top-6 left-6 z-10 pointer-events-none">
-        <div className="bg-dark/90 backdrop-blur-md p-4 rounded-2xl border border-white/10 shadow-xl">
-           <div className="flex items-center gap-3 mb-2">
-              <span className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></span>
-              <p className="text-[10px] font-black text-white uppercase tracking-widest">Live Signal: Active</p>
-           </div>
-           <p className="text-white font-bold text-sm">East Legon Route 4</p>
-           <p className="text-white/60 text-xs">Estimated Arrival: 12 mins</p>
-        </div>
-      </div>
-      <div className="absolute bottom-6 left-6 right-6 flex justify-between items-center pointer-events-none">
-        <div className="bg-white dark:bg-white/5/95 backdrop-blur-md p-4 rounded-2xl border border-gray-200 pointer-events-auto shadow-xl flex items-center gap-4">
-          <div className="flex flex-col">
-            <p className="text-[10px] font-black text-muted dark:text-gray-300 uppercase mb-0.5 tracking-widest">Next Stop</p>
-            <p className="text-sm font-black text-dark dark:text-white">A&C Mall Enclave</p>
+
+      {/* The Truck */}
+      <div className="absolute z-20 transition-transform duration-75 ease-linear will-change-transform"
+           style={{ left: `${pos.x}%`, top: `${pos.y}%`, transform: `translate(-50%, -50%) rotate(${angle}deg)` }}>
+        <div className="relative">
+          {/* Brake Lights when stopped */}
+          {isStopped && <div className="absolute left-[-10px] top-1/2 -translate-y-1/2 w-8 h-8 bg-red-500/50 blur-md rounded-full animate-pulse"></div>}
+          
+          <div className="w-14 h-8 bg-white dark:bg-gray-800 rounded-md shadow-2xl border border-gray-300 dark:border-gray-600 flex items-center justify-between px-1 relative z-10">
+            <div className="w-3 h-6 bg-blue-200 dark:bg-blue-900/50 rounded-sm"></div>
+            <span className="text-[8px] font-black text-dark dark:text-white uppercase tracking-tighter">MyKart</span>
+            <div className={`w-1 h-6 ${isStopped ? 'bg-red-500 shadow-[0_0_10px_rgba(239,68,68,0.8)]' : 'bg-red-900'} rounded-full transition-colors duration-200`}></div>
           </div>
-          <div className="w-px h-8 bg-gray-200"></div>
-          <div className="flex flex-col">
-            <p className="text-[10px] font-black text-muted dark:text-gray-300 uppercase mb-0.5 tracking-widest">Speed</p>
-            <p className="text-sm font-black text-dark dark:text-white">35 km/h</p>
-          </div>
+          
+          {/* "Pickup Available" Popup */}
+          {isStopped && (
+            <div className="absolute -top-16 left-1/2 -translate-x-1/2 bg-white dark:bg-gray-800 p-2 rounded-xl shadow-xl border border-primary animate-in zoom-in slide-in-from-bottom-2 duration-300 min-w-[140px]">
+               <div className="flex flex-col items-center text-center">
+                  <span className="text-xs font-black text-primary uppercase tracking-wider">Accra Mall</span>
+                  <span className="text-[10px] font-bold text-dark dark:text-white">Available for Pickup!</span>
+                  <span className="text-[8px] text-muted dark:text-gray-400">Truck departs in 3s...</span>
+               </div>
+               <div className="absolute bottom-[-6px] left-1/2 -translate-x-1/2 w-3 h-3 bg-white dark:bg-gray-800 border-b border-r border-primary rotate-45"></div>
+            </div>
+          )}
         </div>
-        <button 
-          onClick={() => setIsMoving(!isMoving)}
-          className="w-14 h-14 bg-primary text-white rounded-2xl flex items-center justify-center shadow-2xl shadow-primary/40 pointer-events-auto active:scale-90 transition-all hover:scale-105"
-        >
-          <span className="material-symbols-outlined text-3xl">{isMoving ? 'pause' : 'play_arrow'}</span>
-        </button>
       </div>
     </div>
   );
+};
+
+// --- COMPONENT 2: GHANA CARD VERIFICATION SIMULATION ---
+const GhanaCardSim: React.FC = () => {
+  const [stage, setStage] = useState(0); // 0: Idle, 1: Scanning, 2: Verified
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setStage(prev => (prev + 1) % 3);
+    }, 3000); // Cycle every 3 seconds
+    return () => clearInterval(interval);
+  }, []);
+
+  return (
+    <div className="bg-white dark:bg-white/5 rounded-3xl p-6 border border-gray-100 dark:border-white/10 shadow-sm relative overflow-hidden h-full flex flex-col">
+       <div className="mb-4">
+          <div className="w-10 h-10 bg-primary/10 rounded-full flex items-center justify-center text-primary mb-2">
+             <span className="material-symbols-outlined">id_card</span>
+          </div>
+          <h4 className="font-bold text-dark dark:text-white">Instant Verification</h4>
+          <p className="text-xs text-muted dark:text-gray-300">NIA Database Integration</p>
+       </div>
+       
+       <div className="flex-1 bg-gray-50 dark:bg-black/20 rounded-xl relative flex items-center justify-center overflow-hidden border border-gray-100 dark:border-white/5">
+          {/* Card Graphic */}
+          <div className={`w-40 h-24 bg-gradient-to-br from-green-600 to-yellow-500 rounded-xl shadow-lg relative transition-all duration-500 ${stage === 2 ? 'scale-95 blur-[1px]' : 'scale-100'}`}>
+             <div className="absolute top-2 left-2 w-8 h-8 bg-gray-200/50 rounded-full"></div>
+             <div className="absolute top-4 right-2 w-16 h-2 bg-white/30 rounded-full"></div>
+             <div className="absolute bottom-2 left-2 w-24 h-2 bg-white/30 rounded-full"></div>
+          </div>
+          
+          {/* Scanning Line */}
+          {stage === 1 && (
+             <div className="absolute inset-0 z-10 bg-gradient-to-b from-transparent via-primary/50 to-transparent w-full h-[10px] animate-[scan_1.5s_ease-in-out_infinite] top-0"></div>
+          )}
+
+          {/* Success Overlay */}
+          <div className={`absolute inset-0 bg-white/90 dark:bg-black/80 flex items-center justify-center transition-opacity duration-300 ${stage === 2 ? 'opacity-100' : 'opacity-0'}`}>
+             <div className="flex flex-col items-center">
+                <div className="w-12 h-12 bg-green-500 rounded-full flex items-center justify-center text-white mb-2 animate-bounce">
+                   <span className="material-symbols-outlined">check</span>
+                </div>
+                <span className="font-black text-green-600 dark:text-green-400 text-sm">VERIFIED</span>
+             </div>
+          </div>
+       </div>
+    </div>
+  );
+};
+
+// --- COMPONENT 3: ROOMMATE BILL SPLIT SIMULATION ---
+const RoommateSplitSim: React.FC = () => {
+   return (
+    <div className="bg-white dark:bg-white/5 rounded-3xl p-6 border border-gray-100 dark:border-white/10 shadow-sm h-full flex flex-col">
+       <div className="mb-4">
+          <div className="w-10 h-10 bg-orange-100 dark:bg-orange-900/30 rounded-full flex items-center justify-center text-orange-600 mb-2">
+             <span className="material-symbols-outlined">call_split</span>
+          </div>
+          <h4 className="font-bold text-dark dark:text-white">Smart Bill Split</h4>
+          <p className="text-xs text-muted dark:text-gray-300">Roommate Run Feature</p>
+       </div>
+       
+       <div className="flex-1 flex flex-col justify-center gap-3">
+          {/* Total Bill */}
+          <div className="flex justify-between items-center bg-gray-50 dark:bg-white/5 p-3 rounded-xl">
+             <span className="text-xs font-bold text-muted dark:text-gray-400">Total Cart</span>
+             <span className="text-sm font-black text-dark dark:text-white">GHS 450.00</span>
+          </div>
+          
+          {/* Split Lines */}
+          <div className="relative pl-4 space-y-2 border-l-2 border-dashed border-gray-200 dark:border-gray-700 ml-2">
+             {[1, 2, 3].map((i) => (
+                <div key={i} className="flex items-center justify-between bg-white dark:bg-black/20 p-2 rounded-lg border border-gray-100 dark:border-white/5 shadow-sm">
+                   <div className="flex items-center gap-2">
+                      <div className={`w-6 h-6 rounded-full flex items-center justify-center text-[10px] text-white font-bold ${i===1 ? 'bg-blue-500' : i===2 ? 'bg-purple-500' : 'bg-pink-500'}`}>
+                         {String.fromCharCode(64 + i)}
+                      </div>
+                      <span className="text-xs text-dark dark:text-gray-300">Roomie {i}</span>
+                   </div>
+                   <span className="text-xs font-bold text-green-600 dark:text-green-400">150.00</span>
+                </div>
+             ))}
+          </div>
+       </div>
+    </div>
+   );
 };
 
 const Wireframes: React.FC = () => {
@@ -84,7 +205,7 @@ const Wireframes: React.FC = () => {
   
   const scroll = (direction: 'left' | 'right') => {
     if (scrollRef.current) {
-      const scrollAmount = 320; // Slightly smaller scroll amount for mobile smoothness
+      const scrollAmount = 320;
       scrollRef.current.scrollBy({
         left: direction === 'left' ? -scrollAmount : scrollAmount,
         behavior: 'smooth'
@@ -99,19 +220,6 @@ const Wireframes: React.FC = () => {
     { title: "Roommate Run", description: "Shared group carts for kommunity purchasing.", img: "https://raw.githubusercontent.com/princessasabea/myKartghwebsite/main/public/group-order-screen.png" },
     { title: "University Roommates", description: "Shared group carts for Kommunity purchasing.", img: "https://raw.githubusercontent.com/princessasabea/myKartghwebsite/main/public/uniroommates.png" },
     { title: "Active Tracking", description: "Live GPS updates for direct and truck deliveries.", img: "https://raw.githubusercontent.com/princessasabea/myKartghwebsite/main/public/truck-tracking.png" }
-  ];
-
-  const mvpFeatures = [
-    { title: "Community Truck Delivery", text: "Shared grocery deliveries to scheduled pickup points", icon: "local_shipping" },
-    { title: "Shop Multiple Stores in One Cart", text: "Groceries from different vendors, one checkout", icon: "shopping_basket" },
-    { title: "Made in Ghana Marketplace", text: "Discover and support local brands and producers", icon: "verified" },
-    { title: "Group Orders & Shared Carts", text: "Order together with friends, family, or neighbors", icon: "group_add" },
-    { title: "Flexible Delivery for Underserved Areas", text: "Access groceries even outside normal delivery zones", icon: "explore" },
-    { title: "Smart Shopping Assistant", text: "Get help planning meals and finding items", icon: "psychology" },
-    { title: "Community Hub", text: "Recipes, chefs, vendors, and local events in one place", icon: "forum" },
-    { title: "Scheduled Pickups", text: "Predictable delivery days by area", icon: "event_available" },
-    { title: "Simple, Fast Checkout", text: "Designed for convenience", icon: "speed" },
-    { title: "Built for the 24-Hour Economy", text: "Order anytime, pickup when it works for you", icon: "history_toggle_off" },
   ];
 
   return (
@@ -129,11 +237,6 @@ const Wireframes: React.FC = () => {
       <section className="py-20 flex flex-col gap-32">
         {/* Interactive Slider Container */}
         <div className="relative w-full group">
-          {/* UPDATED BUTTONS:
-            1. Added 'z-30' to ensure they sit on top.
-            2. Changed opacity logic: 'opacity-100 md:opacity-0' 
-               (Always visible on mobile, hide-until-hover on desktop).
-          */}
           <button 
             onClick={() => scroll('left')}
             className="absolute left-2 md:left-4 top-1/2 -translate-y-1/2 z-30 w-12 h-12 md:w-14 md:h-14 bg-white/90 dark:bg-white/10 backdrop-blur-md border border-gray-200 dark:border-white/10 rounded-full flex items-center justify-center shadow-lg text-dark dark:text-white hover:bg-primary hover:text-white transition-all active:scale-90 opacity-100 md:opacity-0 md:group-hover:opacity-100"
@@ -150,15 +253,15 @@ const Wireframes: React.FC = () => {
             <span className="material-symbols-outlined text-2xl md:text-3xl">chevron_right</span>
           </button>
 
+          {/* SCROLL CONTAINER FIX: Added pr-8 to ensure last item has space, and snap-x */}
           <div 
             ref={scrollRef}
-            className="flex gap-8 md:gap-12 overflow-x-auto no-scrollbar scroll-smooth px-8 py-12"
-            style={{ scrollSnapType: 'x mandatory' }}
+            className="flex gap-8 md:gap-12 overflow-x-auto no-scrollbar scroll-smooth px-8 py-12 snap-x snap-mandatory"
           >
             {appScreens.map((screen, idx) => (
               <div 
                 key={idx} 
-                className="inline-block w-[280px] md:w-[340px] group flex-shrink-0 scroll-snap-align-center md:scroll-snap-align-start"
+                className="inline-block w-[280px] md:w-[340px] group flex-shrink-0 snap-center md:snap-start"
               >
                 <div className="relative aspect-[9/19] rounded-[3rem] border-[8px] md:border-[12px] border-dark overflow-hidden shadow-2xl bg-white dark:bg-white/5 transition-all duration-500 group-hover:scale-[1.02] group-hover:-translate-y-2 group-hover:shadow-primary/20">
                   <img src={screen.img} className="w-full h-full object-cover" alt={screen.title} />
@@ -169,14 +272,15 @@ const Wireframes: React.FC = () => {
                 </div>
               </div>
             ))}
+            {/* Spacer div to fix mobile scroll cutting off last item */}
+            <div className="w-4 shrink-0"></div>
           </div>
           
-          {/* Gradient Overlays (Pointer events none ensures clicks pass through to buttons) */}
           <div className="absolute inset-y-0 left-0 w-24 md:w-32 bg-gradient-to-r from-bg-light dark:from-[#23170f] to-transparent z-10 pointer-events-none"></div>
           <div className="absolute inset-y-0 right-0 w-24 md:w-32 bg-gradient-to-l from-bg-light dark:from-[#23170f] to-transparent z-10 pointer-events-none"></div>
         </div>
 
-        {/* --- ROOMMATE RUN / CAMPUS LAUNCH SPOTLIGHT SECTION --- */}
+        {/* --- ROOMMATE RUN SPOTLIGHT --- */}
         <section className="mx-auto max-w-6xl px-4">
            <div className="bg-[#FFF8F0] dark:bg-white/5 rounded-[3rem] p-8 md:p-16 overflow-hidden border border-orange-100 dark:border-white/10 relative transition-colors">
              <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center relative z-10">
@@ -227,10 +331,20 @@ const Wireframes: React.FC = () => {
                    </div>
                 </div>
              </div>
-             {/* Decorative blob */}
              <div className="absolute top-0 right-0 w-96 h-96 bg-orange-200/20 dark:bg-primary/10 rounded-full blur-3xl -z-0 translate-x-1/2 -translate-y-1/2"></div>
            </div>
         </section>
+
+        {/* --- NEW SECTION: INTERACTIVE FEATURE SIMULATIONS --- */}
+        <div className="max-w-6xl mx-auto px-4 w-full">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
+               {/* Ghana Card Feature Demo */}
+               <GhanaCardSim />
+               
+               {/* Roommate Bill Split Demo */}
+               <RoommateSplitSim />
+            </div>
+        </div>
 
         {/* Unified Kommunity Truck & Logistics Space */}
         <div className="max-w-6xl mx-auto px-4 w-full flex flex-col gap-12">
@@ -271,27 +385,6 @@ const Wireframes: React.FC = () => {
             <div id="planned-routes" className="bg-bg-light/50 dark:bg-black/20 border-t border-gray-100 dark:border-white/10 py-16">
               <TruckSchedule showHero={false} />
             </div>
-          </div>
-
-          <div className="mt-24 py-20 border-t border-gray-100 dark:border-white/10">
-             <div className="mb-16">
-                <span className="text-primary font-bold text-xs uppercase tracking-widest block mb-4">EXTENDED CAPABILITIES</span>
-                <h2 className="text-4xl md:text-6xl font-black text-dark dark:text-white tracking-tighter mb-4">Other Features in MVP.</h2>
-                <p className="text-xl text-muted dark:text-gray-300 font-medium max-w-2xl leading-relaxed">
-                  Beyond tracking and scheduling, MyKart is packed with tools designed to simplify your life and support local ecosystems.
-                </p>
-             </div>
-             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                {mvpFeatures.map((feature, idx) => (
-                   <div key={idx} className="bg-white dark:bg-white/5 p-8 rounded-[2.5rem] border border-gray-100 dark:border-white/10 shadow-sm hover:border-primary/30 transition-all group">
-                      <div className="w-14 h-14 bg-primary/5 dark:bg-white/10 rounded-2xl flex items-center justify-center text-primary mb-6 group-hover:bg-primary group-hover:text-white transition-colors">
-                         <span className="material-symbols-outlined text-[32px]">{feature.icon}</span>
-                      </div>
-                      <h4 className="text-xl font-black text-dark dark:text-white mb-2 leading-tight">{feature.title}</h4>
-                      <p className="text-muted dark:text-gray-300 font-medium text-sm leading-relaxed">{feature.text}</p>
-                   </div>
-                ))}
-             </div>
           </div>
         </div>
       </section>
