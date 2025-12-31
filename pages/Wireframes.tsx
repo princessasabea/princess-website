@@ -239,7 +239,7 @@ const RoommateAppSim: React.FC = () => {
                 <span className="material-symbols-outlined text-sm">home</span>
              </div>
              <div>
-                <h3 className="text-sm font-black text-dark dark:text-white leading-none">Pent Block B: 456 🏠</h3>
+                <h3 className="text-sm font-black text-dark dark:text-white leading-none">Legon Flatmates 🏠</h3>
                 <p className="text-[10px] text-muted dark:text-gray-400">Shoprite • East Legon</p>
              </div>
           </div>
@@ -364,65 +364,153 @@ const RoommateAppSim: React.FC = () => {
   );
 };
 
-// --- COMPONENT 3: GHANA CARD MOCK DATA SIM ---
-const GhanaCardSim: React.FC = () => {
+// --- COMPONENT 3: GHANA CARD VERIFICATION JOURNEY ---
+const GhanaCardVerificationJourney: React.FC = () => {
   const [stage, setStage] = useState(0); 
+  const [subTick, setSubTick] = useState(0);
+
   useEffect(() => {
+    const timers = [
+      setTimeout(() => setStage(1), 5000),   // T+5s: Scan
+      setTimeout(() => setStage(2), 12000),  // T+12s: Processing
+      setTimeout(() => setStage(3), 22000),  // T+22s: Cross-Check
+      setTimeout(() => setStage(4), 30000),  // T+30s: Success
+      setTimeout(() => setStage(5), 40000),  // T+40s: Access
+      setTimeout(() => setStage(6), 50000),  // T+50s: End
+      setTimeout(() => setStage(0), 60000),  // T+60s: Loop
+    ];
+    
     const interval = setInterval(() => {
-      setStage(prev => (prev + 1) % 3);
-    }, 4000); 
-    return () => clearInterval(interval);
-  }, []);
+      setSubTick(prev => prev + 1);
+    }, 1000);
+
+    return () => {
+      timers.forEach(t => clearTimeout(t));
+      clearInterval(interval);
+    };
+  }, [stage === 0]);
 
   return (
-    <div className="bg-white dark:bg-white/5 rounded-3xl p-6 border border-gray-100 dark:border-white/10 shadow-sm relative overflow-hidden h-full flex flex-col">
+    <div className="bg-white dark:bg-white/5 rounded-3xl p-6 border border-gray-100 dark:border-white/10 shadow-sm relative overflow-hidden h-[400px] flex flex-col">
        <div className="mb-4">
           <div className="w-10 h-10 bg-primary/10 rounded-full flex items-center justify-center text-primary mb-2">
-             <span className="material-symbols-outlined">fingerprint</span>
+             <span className="material-symbols-outlined">verified_user</span>
           </div>
-          <h4 className="font-bold text-dark dark:text-white">Identity Verification</h4>
-          <p className="text-xs text-muted dark:text-gray-300">NIA Database Integration</p>
+          <h4 className="font-bold text-dark dark:text-white">Ghana Card Verification</h4>
+          <p className="text-xs text-muted dark:text-gray-300">Identity Security Protocol</p>
        </div>
-       <div className="flex-1 bg-gray-50 dark:bg-black/20 rounded-xl relative flex items-center justify-center overflow-hidden border border-gray-100 dark:border-white/5 p-4">
-          <div className={`w-full max-w-[200px] bg-white dark:bg-gray-800 rounded-lg shadow-sm p-3 transition-all duration-500 ${stage === 2 ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4 absolute'}`}>
-             <div className="flex items-center gap-2 mb-3 border-b border-gray-100 dark:border-white/10 pb-2">
-                <img src="/logo.png" className="w-4 h-4 opacity-50" alt="" />
-                <span className="text-[10px] font-bold text-gray-400">NIA DATA PREVIEW</span>
+       
+       <div className="flex-1 bg-gray-50 dark:bg-black/20 rounded-xl relative flex items-center justify-center overflow-hidden border border-gray-100 dark:border-white/5 p-4 text-center">
+          
+          {/* STAGE 0: INTRO */}
+          <div className={`absolute inset-0 flex flex-col items-center justify-center transition-opacity duration-500 ${stage === 0 ? 'opacity-100 z-10' : 'opacity-0 z-0'}`}>
+             <h3 className="text-xl font-black text-dark dark:text-white mb-2 leading-tight">Identity Verification<br/>Required</h3>
+             <p className="text-xs text-muted dark:text-gray-400 max-w-[200px] mb-6">To host or manage community deliveries, identity verification is required.</p>
+             <div className="inline-flex items-center gap-1 px-3 py-1 bg-white dark:bg-white/10 rounded-full border border-gray-200 dark:border-white/10">
+                <img src="/logo.png" className="w-3 h-3 opacity-50" alt="" />
+                <span className="text-[9px] font-bold text-gray-500 dark:text-gray-400 uppercase">Powered by Ghana Card</span>
              </div>
-             <div className="space-y-2">
-                <div>
-                   <div className="text-[8px] text-gray-400 uppercase">Surname</div>
-                   <div className="h-3 w-16 bg-gray-200 dark:bg-white/10 rounded animate-pulse"></div>
+          </div>
+
+          {/* STAGE 1: SCAN SIMULATION */}
+          <div className={`absolute inset-0 flex flex-col items-center justify-center transition-all duration-500 ${stage === 1 ? 'opacity-100 z-10' : 'opacity-0 z-0'}`}>
+             <div className="w-48 h-28 bg-gradient-to-br from-[#2F855A] to-[#ECC94B] rounded-xl shadow-xl relative overflow-hidden mb-4 animate-[float_3s_ease-in-out_infinite]">
+                 {/* Card Details */}
+                 <div className="absolute top-3 left-3 w-10 h-10 bg-gray-200/50 rounded-md"></div>
+                 <div className="absolute top-4 left-16 space-y-2">
+                    <div className="w-24 h-2 bg-white/30 rounded-full"></div>
+                    <div className="w-16 h-2 bg-white/30 rounded-full"></div>
+                 </div>
+                 <div className="absolute bottom-2 right-2 w-6 h-6 rounded-full border border-white/20 flex items-center justify-center text-[5px] text-white font-black opacity-50">ECOWAS</div>
+                 {/* Scanning Light */}
+                 <div className="absolute inset-0 bg-white/20 h-[2px] w-full top-0 animate-[scan_1.5s_linear_infinite]"></div>
+             </div>
+             <p className="text-xs font-bold text-primary animate-pulse">Scanning Ghana Card...</p>
+          </div>
+
+          {/* STAGE 2: PROCESSING */}
+          <div className={`absolute inset-0 flex flex-col items-center justify-center transition-all duration-500 ${stage === 2 ? 'opacity-100 z-10' : 'opacity-0 z-0'}`}>
+             <div className="w-12 h-12 border-4 border-gray-200 dark:border-gray-700 border-t-primary rounded-full animate-spin mb-4"></div>
+             <p className="text-sm font-bold text-dark dark:text-white">
+                {subTick % 3 === 0 ? "Validating identity..." : subTick % 3 === 1 ? "Checking national registry..." : "Confirming uniqueness..."}
+             </p>
+             <p className="text-[10px] text-muted dark:text-gray-400 mt-2 flex items-center gap-1">
+                <span className="material-symbols-outlined text-[10px]">lock</span> All data securely processed
+             </p>
+          </div>
+
+          {/* STAGE 3: CROSS-CHECK */}
+          <div className={`absolute inset-0 flex flex-col items-center justify-center transition-all duration-500 ${stage === 3 ? 'opacity-100 z-10' : 'opacity-0 z-0'}`}>
+             <div className="space-y-3 w-full max-w-[200px]">
+                <div className="flex items-center gap-3 p-2 bg-white dark:bg-white/5 rounded-lg border border-gray-100 dark:border-white/5 animate-in slide-in-from-bottom-2 duration-300">
+                   <span className="material-symbols-outlined text-green-500 text-sm">check_circle</span>
+                   <span className="text-xs font-bold text-dark dark:text-white">Name matched</span>
                 </div>
-                <div>
-                   <div className="text-[8px] text-gray-400 uppercase">First Name</div>
-                   <div className="h-3 w-20 bg-gray-200 dark:bg-white/10 rounded animate-pulse delay-75"></div>
+                <div className="flex items-center gap-3 p-2 bg-white dark:bg-white/5 rounded-lg border border-gray-100 dark:border-white/5 animate-in slide-in-from-bottom-2 duration-500 delay-300">
+                   <span className="material-symbols-outlined text-green-500 text-sm">check_circle</span>
+                   <span className="text-xs font-bold text-dark dark:text-white">ID number valid</span>
                 </div>
-                <div>
-                   <div className="text-[8px] text-gray-400 uppercase">Card ID</div>
-                   <div className="flex items-center gap-1">
-                      <span className="text-[10px] font-mono text-dark dark:text-white">GHA-72</span>
-                      <div className="h-2 w-12 bg-gray-200 dark:bg-white/10 rounded blur-[2px]"></div>
+                <div className="flex items-center gap-3 p-2 bg-white dark:bg-white/5 rounded-lg border border-gray-100 dark:border-white/5 animate-in slide-in-from-bottom-2 duration-700 delay-500">
+                   <span className="material-symbols-outlined text-green-500 text-sm">check_circle</span>
+                   <span className="text-xs font-bold text-dark dark:text-white">Region verified</span>
+                </div>
+             </div>
+             <p className="text-xs font-bold text-green-600 dark:text-green-400 mt-4">Identity Confirmed</p>
+          </div>
+
+          {/* STAGE 4: SUCCESS */}
+          <div className={`absolute inset-0 flex flex-col items-center justify-center transition-all duration-500 ${stage === 4 ? 'opacity-100 z-10' : 'opacity-0 z-0'}`}>
+             <div className="w-16 h-16 bg-green-100 dark:bg-green-900/20 rounded-full flex items-center justify-center text-green-600 dark:text-green-400 mb-4 animate-bounce">
+                <span className="material-symbols-outlined text-4xl">verified_user</span>
+             </div>
+             <h3 className="text-xl font-black text-dark dark:text-white mb-2">Verification Complete</h3>
+             <p className="text-xs text-muted dark:text-gray-400 mb-4">You are now a verified community member</p>
+             <div className="bg-green-600 text-white px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-widest shadow-lg">Verified Host</div>
+          </div>
+
+          {/* STAGE 5: ACCESS GRANTED */}
+          <div className={`absolute inset-0 flex flex-col items-center justify-center p-6 transition-all duration-500 ${stage === 5 ? 'opacity-100 z-10' : 'opacity-0 z-0'}`}>
+             <div className="bg-white dark:bg-gray-800 w-full rounded-2xl shadow-xl p-5 border border-primary/20">
+                <h4 className="font-black text-dark dark:text-white mb-4 uppercase text-xs tracking-widest text-left">Unlocked Features</h4>
+                <div className="space-y-3">
+                   <div className="flex items-center gap-2">
+                      <div className="w-5 h-5 bg-primary/10 rounded-full flex items-center justify-center text-primary"><span className="material-symbols-outlined text-[10px]">local_shipping</span></div>
+                      <span className="text-xs font-bold text-dark dark:text-white">Host Kommunity Truck</span>
+                   </div>
+                   <div className="flex items-center gap-2">
+                      <div className="w-5 h-5 bg-primary/10 rounded-full flex items-center justify-center text-primary"><span className="material-symbols-outlined text-[10px]">groups</span></div>
+                      <span className="text-xs font-bold text-dark dark:text-white">Manage pickup groups</span>
+                   </div>
+                   <div className="flex items-center gap-2">
+                      <div className="w-5 h-5 bg-primary/10 rounded-full flex items-center justify-center text-primary"><span className="material-symbols-outlined text-[10px]">star</span></div>
+                      <span className="text-xs font-bold text-dark dark:text-white">Appear as verified organizer</span>
                    </div>
                 </div>
              </div>
-             <div className="mt-3 pt-2 border-t border-gray-100 dark:border-white/10 flex justify-between items-center">
-                 <span className="text-[8px] text-green-500 font-bold">MATCH FOUND</span>
-                 <span className="material-symbols-outlined text-[12px] text-green-500">verified</span>
+             <p className="text-[10px] text-muted dark:text-gray-400 mt-4 font-medium">Trusted hosts help keep the community safe.</p>
+          </div>
+
+          {/* STAGE 6: END */}
+          <div className={`absolute inset-0 flex flex-col items-center justify-center transition-all duration-500 ${stage === 6 ? 'opacity-100 z-10' : 'opacity-0 z-0'}`}>
+             <h3 className="text-lg font-black text-dark dark:text-white mb-4 text-center leading-tight">Verification builds<br/>Trust across the<br/><span className="text-primary">Kommunity</span></h3>
+             <div className="flex items-center gap-3">
+                <span className="text-[10px] font-bold text-muted dark:text-gray-400 uppercase tracking-widest">Secure</span>
+                <span className="w-1 h-1 bg-gray-300 rounded-full"></span>
+                <span className="text-[10px] font-bold text-muted dark:text-gray-400 uppercase tracking-widest">Local</span>
+                <span className="w-1 h-1 bg-gray-300 rounded-full"></span>
+                <span className="text-[10px] font-bold text-muted dark:text-gray-400 uppercase tracking-widest">Community</span>
              </div>
+             <div className="mt-8 text-[9px] text-gray-300 dark:text-gray-600 font-mono">RESTARTING DEMO...</div>
           </div>
-          <div className={`w-40 h-24 bg-gradient-to-br from-[#2F855A] to-[#ECC94B] rounded-xl shadow-lg relative transition-all duration-500 ${stage === 2 ? 'opacity-0 scale-90 absolute' : 'opacity-100 scale-100'}`}>
-             <div className="absolute top-2 left-2 w-8 h-8 bg-gray-200/50 rounded-full"></div>
-             <div className="absolute top-4 right-2 w-16 h-2 bg-white/30 rounded-full"></div>
-             <div className="absolute bottom-2 left-2 w-24 h-2 bg-white/30 rounded-full"></div>
-             <div className="absolute bottom-2 right-2 w-8 h-8 rounded-full border border-white/20 flex items-center justify-center text-[6px] text-white font-black opacity-50">ECOWAS</div>
-          </div>
-          {stage === 1 && (
-             <div className="absolute inset-0 z-10 bg-gradient-to-b from-transparent via-green-400/50 to-transparent w-full h-[4px] animate-[scan_1s_ease-in-out_infinite]"></div>
-          )}
-          <div className="absolute top-2 right-2 bg-orange-100 dark:bg-orange-900/30 text-orange-700 dark:text-orange-300 text-[9px] font-black px-2 py-1 rounded-md border border-orange-200 dark:border-orange-500/20">
-             COMING SOON
-          </div>
+
+       </div>
+       
+       {/* PROGRESS BAR */}
+       <div className="absolute bottom-0 left-0 w-full h-1 bg-gray-100 dark:bg-white/5">
+          <div 
+             className="h-full bg-primary transition-all duration-[1000ms] ease-linear"
+             style={{ width: `${(stage / 6) * 100}%` }}
+          ></div>
        </div>
     </div>
   );
@@ -506,7 +594,7 @@ const Wireframes: React.FC = () => {
           <div className="absolute inset-y-0 right-0 w-24 md:w-32 bg-gradient-to-l from-bg-light dark:from-[#23170f] to-transparent z-10 pointer-events-none"></div>
         </div>
 
-        {/* --- ROOMMATE RUN SPOTLIGHT (WITH RESTORED IMAGE AND SIMULATION UNDER) --- */}
+        {/* --- ROOMMATE RUN SPOTLIGHT --- */}
         <section className="mx-auto max-w-6xl px-4">
            <div className="bg-[#FFF8F0] dark:bg-white/5 rounded-[3rem] p-8 md:p-16 overflow-hidden border border-orange-100 dark:border-white/10 relative transition-colors">
              <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start relative z-10">
@@ -548,9 +636,8 @@ const Wireframes: React.FC = () => {
                    </div>
                 </div>
                 
-                {/* --- RIGHT COLUMN: IMAGE FIRST, THEN SIMULATION --- */}
                 <div className="order-1 lg:order-2 flex flex-col items-center gap-12">
-                   {/* 1. Static Image (Restored) */}
+                   {/* 1. Static Image */}
                    <div className="relative w-[280px] rotate-3 hover:rotate-0 transition-all duration-500">
                       <img 
                         src="https://raw.githubusercontent.com/princessasabea/princess-website/a73b75287274cf45ce2f7e2de7ef9914b9ed6f28/public/legonroomate.png" 
@@ -558,14 +645,12 @@ const Wireframes: React.FC = () => {
                         className="w-full rounded-[2.5rem] shadow-2xl border-8 border-white dark:border-gray-800"
                       />
                    </div>
-
-                   {/* 2. Divider/Label */}
+                   {/* 2. Divider */}
                    <div className="flex items-center gap-4 w-full justify-center opacity-50">
                       <span className="h-px w-12 bg-dark dark:bg-white"></span>
                       <span className="text-[10px] font-black uppercase text-dark dark:text-white tracking-widest">Live Interactive Demo</span>
                       <span className="h-px w-12 bg-dark dark:bg-white"></span>
                    </div>
-
                    {/* 3. Interactive Simulation */}
                    <div className="relative w-full max-w-[350px]">
                       <RoommateAppSim />
@@ -579,17 +664,20 @@ const Wireframes: React.FC = () => {
         {/* --- INTERACTIVE FEATURE SIMULATIONS --- */}
         <div className="max-w-6xl mx-auto px-4 w-full">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
-               <GhanaCardSim />
-               <div className="bg-gradient-to-br from-primary to-orange-600 rounded-3xl p-8 flex flex-col justify-between text-white shadow-lg relative overflow-hidden h-full min-h-[300px]">
+               {/* Ghana Card Verification (Updated) */}
+               <GhanaCardVerificationJourney />
+               
+               {/* Join Pilot Card */}
+               <div className="bg-gradient-to-br from-primary to-orange-600 rounded-3xl p-8 flex flex-col justify-between text-white shadow-lg relative overflow-hidden h-[400px]">
                   <div className="relative z-10">
-                    <h3 className="text-2xl font-black mb-2">Join the Pilot</h3>
-                    <p className="text-white/80 text-sm mb-6">Be the first to test Roommate Run on your campus.</p>
-                    <a href="https://tally.so/r/WO2v4v" target="_blank" rel="noreferrer" className="inline-flex px-6 py-3 bg-white text-primary font-bold rounded-xl shadow-lg hover:scale-105 transition-transform">
+                    <h3 className="text-3xl font-black mb-4">Join the Pilot</h3>
+                    <p className="text-white/80 text-lg mb-8 max-w-xs leading-relaxed">Be the first to test Roommate Run on your campus.</p>
+                    <a href="https://tally.so/r/WO2v4v" target="_blank" rel="noreferrer" className="inline-flex px-8 py-4 bg-white text-primary font-black rounded-2xl shadow-xl hover:scale-105 transition-transform active:scale-95">
                        Join Waitlist
                     </a>
                   </div>
-                  <div className="absolute bottom-[-20px] right-[-20px] opacity-20">
-                     <span className="material-symbols-outlined text-[150px]">rocket_launch</span>
+                  <div className="absolute bottom-[-40px] right-[-40px] opacity-20">
+                     <span className="material-symbols-outlined text-[250px]">rocket_launch</span>
                   </div>
                </div>
             </div>
